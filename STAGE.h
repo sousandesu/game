@@ -6,6 +6,8 @@ class STAGE :
 public:
     STAGE(class GAME* game);
     ~STAGE();
+    void init();
+    void update();
     void draw();
     void nextScene();
 };

@@ -140,6 +140,7 @@
     <ClCompile Include="GAME_OBJECT.cpp" />
     <ClCompile Include="GAME_OVER.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MAP.cpp" />
     <ClCompile Include="SCENE.cpp" />
     <ClCompile Include="STAGE.cpp" />
     <ClCompile Include="TITLE.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="GAME_CLEAR.h" />
     <ClInclude Include="GAME_OBJECT.h" />
     <ClInclude Include="GAME_OVER.h" />
+    <ClInclude Include="MAP.h" />
     <ClInclude Include="SCENE.h" />
     <ClInclude Include="STAGE.h" />
     <ClInclude Include="TITLE.h" />
@@ -161,6 +163,9 @@
     <ProjectReference Include="..\libOne\libOne.vcxproj">
       <Project>{94bf0c4f-ab80-4dd3-8195-d212bc414797}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\map1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

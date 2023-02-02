@@ -6,6 +6,7 @@ private:
 	class CONTAINER* Container;
 public:
 	class CONTAINER* container() { return Container; }
+//シーン
 public:
 	enum SCENE_ID {
 		TITLE_ID,
@@ -18,9 +19,15 @@ private:
 	class SCENE* Scenes[NUM_SCENES];
 	SCENE_ID CurSceneId;
 public:
+	void changeScene(SCENE_ID sceneId);
+//キャラクタ
+private:
+	class MAP* Map;
+public:
+	class MAP* map() { return Map; }
+public:
 	GAME();
 	~GAME();
 	void run();
-	void changeScene(SCENE_ID sceneId);
 };
 

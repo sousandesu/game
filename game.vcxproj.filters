@@ -14,6 +14,9 @@
     <Filter Include="scene\base">
       <UniqueIdentifier>{7ac8651b-3e69-4a0d-8e34-31b25c64cff8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="container">
+      <UniqueIdentifier>{6d9914d7-6539-4782-b4ee-2d3616fcd5b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GAME.cpp">
@@ -40,7 +43,10 @@
     <ClCompile Include="SCENE.cpp">
       <Filter>scene\base</Filter>
     </ClCompile>
-    <ClCompile Include="CONTAINER.cpp" />
+    <ClCompile Include="CONTAINER.cpp">
+      <Filter>container</Filter>
+    </ClCompile>
+    <ClCompile Include="MAP.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc">
@@ -69,6 +75,12 @@
     <ClInclude Include="SCENE.h">
       <Filter>scene\base</Filter>
     </ClInclude>
-    <ClInclude Include="CONTAINER.h" />
+    <ClInclude Include="CONTAINER.h">
+      <Filter>container</Filter>
+    </ClInclude>
+    <ClInclude Include="MAP.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\map1.txt" />
   </ItemGroup>
 </Project>

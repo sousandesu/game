@@ -1,5 +1,6 @@
 #include"libOne.h"
 #include"GAME.h"
+#include"MAP.h"
 #include "STAGE.h"
 STAGE::STAGE(GAME* game) :
 	SCENE(game)
@@ -10,12 +11,23 @@ STAGE::~STAGE()
 {
 }
 
+void STAGE::init()
+{
+	game()->map()->init();
+}
+
+void STAGE::update()
+{
+	game()->map()->update();
+}
+
 void STAGE::draw()
 {
 	clear();
-	printSize(300);
+	game()->map()->draw();
+	printSize(100);
 	print("Stage");
-	print("Zでゲームオーバー画面へ");
+	print("　　Zでゲームオーバー画面へ");
 }
 
 void STAGE::nextScene()
