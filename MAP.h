@@ -17,10 +17,16 @@ public:
         float wy = 0;//world position y
         float worldWidth = 0;
         float worldHeight = 0;
+        float startWorldX = 0;
+        float startWorldY = 0;
         float endWorldX = 0;
         float endWorldY = 0;
         float centerX = 0;
         float centerY = 0;
+    };
+    enum CHARA_ID {
+        PLAYER_ID='a',
+        PLAYER_BULLET_ID='b',
     };
 private:
     DATA Map;

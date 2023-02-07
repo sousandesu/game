@@ -47,6 +47,10 @@
       <Filter>container</Filter>
     </ClCompile>
     <ClCompile Include="MAP.cpp" />
+    <ClCompile Include="CHARACTER.cpp" />
+    <ClCompile Include="CHARACTER_MANAGER.cpp" />
+    <ClCompile Include="PLAYER.cpp" />
+    <ClCompile Include="HIT_POINT.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc">
@@ -79,6 +83,10 @@
       <Filter>container</Filter>
     </ClInclude>
     <ClInclude Include="MAP.h" />
+    <ClInclude Include="CHARACTER.h" />
+    <ClInclude Include="CHARACTER_MANAGER.h" />
+    <ClInclude Include="PLAYER.h" />
+    <ClInclude Include="HIT_POINT.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\map1.txt" />

@@ -3,7 +3,7 @@ class GAME
 {
 //コンテナ
 private:
-	class CONTAINER* Container;
+	class CONTAINER* Container = nullptr;
 public:
 	class CONTAINER* container() { return Container; }
 //シーン
@@ -22,9 +22,13 @@ public:
 	void changeScene(SCENE_ID sceneId);
 //キャラクタ
 private:
-	class MAP* Map;
+	class MAP* Map = nullptr;
+	class CHARACTER_MANAGER* CharacterManager = nullptr;
+	class HIT_POINT* HitPoint = nullptr;
 public:
 	class MAP* map() { return Map; }
+	class CHARACTER_MANAGER* characterManager() { return CharacterManager; }
+	class HIT_POINT* hitPoint() { return HitPoint; }
 public:
 	GAME();
 	~GAME();

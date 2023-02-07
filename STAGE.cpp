@@ -1,6 +1,8 @@
 #include"libOne.h"
 #include"GAME.h"
 #include"MAP.h"
+#include"HIT_POINT.h"
+#include"CHARACTER_MANAGER.h"
 #include "STAGE.h"
 STAGE::STAGE(GAME* game) :
 	SCENE(game)
@@ -9,15 +11,19 @@ STAGE::STAGE(GAME* game) :
 
 STAGE::~STAGE()
 {
+
 }
 
 void STAGE::init()
 {
 	game()->map()->init();
+	game()->characterManager()->init();
+	game()->hitPoint()->init();
 }
 
 void STAGE::update()
 {
+	game()->characterManager()->update();
 	game()->map()->update();
 }
 
@@ -25,9 +31,8 @@ void STAGE::draw()
 {
 	clear();
 	game()->map()->draw();
-	printSize(100);
-	print("Stage");
-	print("　　Zでゲームオーバー画面へ");
+	game()->characterManager()->draw();
+	game()->hitPoint()->draw();
 }
 
 void STAGE::nextScene()

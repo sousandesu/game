@@ -62,15 +62,26 @@ void MAP::init() {
 
 }
 void MAP::update() {
-    //プレイヤーができてから　
-    //又は仮移動をする
-    Map.wy += 1;
+    //プレイヤーが画面の中央を超えた分だけスクロール
+    //左右方向スクロール
+    Map.wx += game()->characterManager()->player()->overCenterVx();
+    //上下方向スクロール
+    Map.wy += game()->characterManager()->player()->overCenterVy();
+
+    
     if (Map.wy > Map.endWorldY) {
         Map.wy = Map.endWorldY;
     }
     if (Map.wx > Map.endWorldX) {
         Map.wx = Map.endWorldX;
     }
+    if (Map.wx < Map.startWorldX) {
+        Map.wx = Map.startWorldX;
+    }
+    if (Map.wy < Map.startWorldY) {
+        Map.wy = Map.startWorldY;
+    }
+
 }
 void MAP::draw() {
     int startCol = (int)Map.wx / Map.chipSize;//表示開始列
@@ -85,9 +96,12 @@ void MAP::draw() {
                 float px = wx - Map.wx;
                 float py = wy - Map.wy;
                 if (charaId == '1') {
-                    fill(0, 0, 255);
-                    rect(px, py, 128, 128);//仮設置
+                    image(Map.treeImg, px, py);
                 }
+            }
+            else if (charaId >= 'a' && charaId <= 'z') {
+                game()->characterManager()->appear(charaId, wx, wy);
+                Map.data[r * Map.cols + c] = '.';
             }
         }
     }
