@@ -1,7 +1,11 @@
 #include"GAME.h"
 #include"CONTAINER.h"
-#include"PLAYER.h"
 #include"CHARACTER.h"
+#include"PLAYER.h"
+#include"PLAYER_BULLET.h"
+#include"ENEMY_1.h"
+#include"ENEMY_2.h"
+#include"ENEMY_2_BULLET.h"
 #include "CHARACTER_MANAGER.h"
 
 CHARACTER_MANAGER::CHARACTER_MANAGER(GAME* game):
@@ -24,13 +28,19 @@ void CHARACTER_MANAGER::create()
     Total = 0;
     Total += CharaMng.numPlayers;
     Total += CharaMng.numPlayerBullets;
+    Total += CharaMng.numEnemies_1;
+    Total += CharaMng.numEnemies_2;
+    Total += CharaMng.numEnemies_2Bullets;
    
     Characters = new CHARACTER * [Total];
 
     Player = new PLAYER(game());
     int i, j = 0;
-    for (i = 0; i < CharaMng.numPlayers; i++)       Characters[j++] = Player;
-    //for (i = 0; i < CharaMng.numPlayerBullets; i++) Characters[j++] = new PLAYER_BULLET(game());
+    for (i = 0; i < CharaMng.numPlayers; i++)         Characters[j++] = Player;
+    for (i = 0; i < CharaMng.numPlayerBullets; i++)   Characters[j++] = new PLAYER_BULLET(game());
+    for (i = 0; i < CharaMng.numEnemies_1; i++)       Characters[j++] = new ENEMY_1(game());
+    for (i = 0; i < CharaMng.numEnemies_2; i++)       Characters[j++] = new ENEMY_2(game());
+    for (i = 0; i < CharaMng.numEnemies_2Bullets; i++)Characters[j++] = new ENEMY_2_BULLET(game());
 
     for (int i = 0; i < Total; i++) {
         Characters[i]->create();
@@ -83,8 +93,23 @@ void CHARACTER_MANAGER::update()
                 Characters[i]->wTop() < Characters[j]->wBottom() &&
                 Characters[j]->wTop() < Characters[i]->wBottom()) {
                 //当たった
-                Characters[i]->damage();
-                Characters[j]->damage();
+                if (Characters[i]->groupId() == 0 && Characters[j]->groupId() == 1) {
+                    //敵キャラと自分が当たる場合自分だけダメージが当たるような分岐
+                    Characters[i]->damage();
+                }
+                else if (Characters[i]->groupId() == 0 && Characters[j]->groupId() == 2) {
+                    //プレイヤーとプレイヤーの弾は当たらない判定
+                }
+                else if (Characters[i]->groupId() == 1 && Characters[j]->groupId() == 4) {
+
+                }
+                else if (Characters[i]->groupId() == 2 && Characters[j]->groupId() == 4) {
+
+                }
+                else {
+                    Characters[i]->damage();
+                    Characters[j]->damage();
+                }
             }
         }
     }

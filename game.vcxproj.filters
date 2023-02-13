@@ -51,6 +51,10 @@
     <ClCompile Include="CHARACTER_MANAGER.cpp" />
     <ClCompile Include="PLAYER.cpp" />
     <ClCompile Include="HIT_POINT.cpp" />
+    <ClCompile Include="ENEMY_1.cpp" />
+    <ClCompile Include="PLAYER_BULLET.cpp" />
+    <ClCompile Include="ENEMY_2.cpp" />
+    <ClCompile Include="ENEMY_2_BULLET.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc">
@@ -87,6 +91,10 @@
     <ClInclude Include="CHARACTER_MANAGER.h" />
     <ClInclude Include="PLAYER.h" />
     <ClInclude Include="HIT_POINT.h" />
+    <ClInclude Include="ENEMY_1.h" />
+    <ClInclude Include="PLAYER_BULLET.h" />
+    <ClInclude Include="ENEMY_2.h" />
+    <ClInclude Include="ENEMY_2_BULLET.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\map1.txt" />

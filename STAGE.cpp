@@ -1,5 +1,6 @@
 #include"libOne.h"
 #include"GAME.h"
+#include"CONTAINER.h"
 #include"MAP.h"
 #include"HIT_POINT.h"
 #include"CHARACTER_MANAGER.h"
@@ -12,6 +13,10 @@ STAGE::STAGE(GAME* game) :
 STAGE::~STAGE()
 {
 
+}
+
+void STAGE::create() {
+	Stage = game()->container()->data().stage;
 }
 
 void STAGE::init()
@@ -34,6 +39,8 @@ void STAGE::draw()
 	game()->characterManager()->draw();
 	game()->hitPoint()->draw();
 }
+
+
 
 void STAGE::nextScene()
 {

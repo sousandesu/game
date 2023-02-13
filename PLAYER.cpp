@@ -23,11 +23,43 @@ void PLAYER::update()
     Move();
     CollisionWithMap();
     CheckState();
+    judgeInvincibleTime();
 }
 
 void PLAYER::Launch()
 {
-    //未記述
+    //弾発射
+    if (isTrigger(KEY_J)) {
+        float vx = 1.0f;
+        float vy = 1.0f;
+        float wx = 0.0f;
+        float wy = 0.0f;
+        if (Chara.animId == Player.rightAnimId) {
+            vx = 1.0f;
+            vy = 0.0f;
+            wx = Chara.wx + Player.bulletOffsetX * vx;
+            wy = Chara.wy + Player.bulletOffsetY * vy;
+        }
+        else if (Chara.animId == Player.leftAnimId) {
+            vx = -1.0f;
+            vy = 0.0f;
+            wx = Chara.wx;
+            wy = Chara.wy + Player.bulletOffsetY * vy;
+        }
+        else if (Chara.animId == Player.upAnimId) {
+            vx = 0.0f;
+            vy = -1.0f;
+            wx = Chara.wx + Player.bulletOffsetX * vx;
+            wy = Chara.wy;
+        }
+        else if (Chara.animId == Player.downAnimId) {
+            vx = 0.0f;
+            vy = 1.0f;
+            wx = Chara.wx + Player.bulletOffsetX * vx;
+            wy = Chara.wy + Player.bulletOffsetY * vy;
+        }
+        game()->characterManager()->appear(Player.bulletCharaId, wx, wy, vx, vy);
+    }
 }
 
 void PLAYER::Move()
@@ -71,7 +103,25 @@ void PLAYER::Move()
 
 void PLAYER::CollisionWithMap()
 {
-    //未記述
+    MAP* map = game()->map();
+
+    // マップチップとキャラの右
+    if (map->collisionCharaRight(wLeft(),wTop(),wRight(),wBottom())) {
+        //移動予定位置がマップに食い込んでいるので現在の位置に戻す
+        Chara.wx = Player.curWx;
+    }
+    // マップチップとキャラの左
+    else if (map->collisionCharaLeft(wLeft(), wTop(), wRight(), wBottom())) {
+        Chara.wx = Player.curWx;
+    }
+    // マップチップとキャラの上
+    if (map->collisionCharaTop(wLeft(), wTop(), wRight(), wBottom())) {
+        Chara.wy = Player.curWy;
+    }
+    // マップチップとキャラの下
+    else if (map->collisionCharaBottom(wLeft(), wTop(), wRight(), wBottom())) {
+        Chara.wy = Player.curWy;
+    }
 }
 
 void PLAYER::CheckState()
@@ -81,19 +131,31 @@ void PLAYER::CheckState()
 
 void PLAYER::draw()
 {
-    float px = Chara.wx - game()->map()->wx();
-    float py = Chara.wy - game()->map()->wy();
-    fill(255, 0, 0);
-    rect(px, py,128,128);
+    Player.px = Chara.wx - game()->map()->wx();
+    Player.py = Chara.wy - game()->map()->wy();
+    //fill(255, 0, 0);
+    rect(Player.px, Player.py,128,128);
 }
 
 void PLAYER::damage()
 {
-    if (Chara.hp > 0) {
+    if (Chara.hp > 0 && Player.invincibleTime <= 0) {
+        Player.invincibleTime = Player.invincibleInterval;
         Chara.hp--;
         if (Chara.hp == 0) {
             State = STATE::DIED;
         }
+    }
+}
+
+void PLAYER::judgeInvincibleTime()
+{
+    if (Player.invincibleTime > 0) {
+        Player.invincibleTime -= delta;
+        fill(0, 255, 0);//無敵時間がわかるように仮に色を変えてる
+    }
+    else {
+        fill(255, 0, 0);
     }
 }
 

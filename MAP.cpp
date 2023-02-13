@@ -84,6 +84,7 @@ void MAP::update() {
 
 }
 void MAP::draw() {
+
     int startCol = (int)Map.wx / Map.chipSize;//表示開始列
     int endCol = startCol + Map.dispCols;//表示終了列
     for (int c = startCol; c < endCol; c++) {
@@ -91,7 +92,6 @@ void MAP::draw() {
         for (int r = 0; r < Map.rows; r++) {
             float wy = (float)Map.chipSize * r;
             char charaId = Map.data[r * Map.cols + c];
-            //木の絵がきたらやる又は仮にレクトを置く
             if (charaId >= '0' && charaId <= '9') {
                 float px = wx - Map.wx;
                 float py = wy - Map.wy;
@@ -106,6 +106,82 @@ void MAP::draw() {
         }
     }
 }
+
+bool MAP::collisionCheck(float wx, float wy) {
+    //ワールド座標からマップDataの列colと行rowを求める
+    int col = (int)wx / Map.chipSize;
+    int row = (int)wy / Map.chipSize;
+    //Dataの範囲外は判定できないので除外
+    if ((col < 0) || (col >= Map.cols) || (row < 0) || (row >= Map.rows)) {
+        return false;
+    }
+    //次の記述で座標がマップチップの中に入っているか判定できる
+    if (Map.data[col + row * Map.cols] == '1') {
+        return true;
+    }
+    return false;
+}
+/*
+//　マップチップとキャラの左辺が重なっているか
+bool MAP::collisionCharaLeft(float wx, float wy) {
+    bool leftTop = collisionCheck(wx, wy);
+    bool leftBottom = collisionCheck(wx, wy + Map.chipSize - 1);
+    return leftTop || leftBottom;
+}
+//　マップチップとキャラの右辺が重なっているか
+bool MAP::collisionCharaRight(float wx, float wy) {
+    bool rightTop = collisionCheck(wx + Map.chipSize - 1, wy);
+    bool rightBottom = collisionCheck(wx + Map.chipSize - 1, wy + Map.chipSize - 1);
+    return rightTop || rightBottom;
+}
+//　マップチップとキャラの上辺が重なっているか
+bool MAP::collisionCharaTop(float wx, float wy) {
+    bool topLeft = collisionCheck(wx, wy);
+    bool topRight = collisionCheck(wx + Map.chipSize - 1, wy);
+    return topLeft || topRight;
+}
+//　マップチップとキャラの下辺が重なっている、または、接しているか。ここだけ他と違う！
+bool MAP::collisionCharaBottom(float wx, float wy) {
+    // wy + Map.chipSizeをCheck関数に渡すことにより
+    // キャラがマップチップと接しているかチェックできる。
+    bool bottomLeft = collisionCheck(wx, wy + Map.chipSize);//最後に－１する可能性
+    bool bottomRight = collisionCheck(wx + Map.chipSize - 1, wy + Map.chipSize);//最後に－１する可能性
+    return bottomLeft || bottomRight;
+}
+*/
+//上記の各コリジョンチェックは下記に変更
+bool MAP::collisionCharaLeft(float wLeft, float wTop, float wRight, float wBottom) {
+    bool leftTop = collisionCheck(wLeft, wTop);
+    bool leftBottom = collisionCheck(wLeft, wBottom);
+    return leftTop || leftBottom;
+}
+
+bool MAP::collisionCharaRight(float wLeft, float wTop, float wRight, float wBottom) {
+    bool rightTop = collisionCheck(wRight, wTop);
+    bool rightBottom = collisionCheck(wRight, wBottom);
+    return rightTop || rightBottom;
+}
+
+bool MAP::collisionCharaTop(float wLeft, float wTop, float wRight, float wBottom) {
+    bool rightTop = collisionCheck(wRight, wTop);
+    bool leftTop = collisionCheck(wLeft, wTop);
+    return rightTop || leftTop;
+}
+
+bool MAP::collisionCharaBottom(float wLeft, float wTop, float wRight, float wBottom) {
+    bool rightBottom = collisionCheck(wRight, wBottom);
+    bool leftBottom = collisionCheck(wLeft, wBottom);
+    return rightBottom || leftBottom;
+}
+
+//　マップチップと弾の当たり判定に使用
+//bool MAP::collisionCharaRect(float wLeft, float wTop, float wRight, float wBottom) {
+//    bool rightTop = collisionCheck(wRight, wTop);
+//    bool rightBottom = collisionCheck(wRight, wBottom);
+//    bool leftTop = collisionCheck(wLeft, wTop);
+//    bool leftBottom = collisionCheck(wLeft, wBottom);
+//    return rightTop || rightBottom || leftTop || leftBottom;
+//}
 
 float MAP::wDispLeft()
 {

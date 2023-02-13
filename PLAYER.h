@@ -11,9 +11,13 @@ public:
         int downAnimId = 3;
         float curWx = 0;
         float curWy = 0;
+        float px = 0;
+        float py = 0;
         char bulletCharaId = 0;
         float bulletOffsetX = 0;
         float bulletOffsetY = 0;
+        float invincibleTime = 0;
+        float invincibleInterval = 0;
     };
 private:
     DATA Player;
@@ -32,10 +36,13 @@ private:
 public:
     void draw();
     void damage();
+    void judgeInvincibleTime();
     bool died();
     bool survived();
     float overCenterVx();
     float overCenterVy();
     int hp() { return Chara.hp; }
+    float px() { return Player.px; }
+    float py() { return Player.py; }
 };
 

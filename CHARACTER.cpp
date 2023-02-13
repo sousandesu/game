@@ -14,6 +14,8 @@ void CHARACTER::create()
 void CHARACTER::init()
 {
 	Chara.hp = 0;
+	Chara.vx = 0.0f;
+	Chara.vy = 0.0f;
 }
 
 void CHARACTER::appear(float wx, float wy, float vx, float vy)
