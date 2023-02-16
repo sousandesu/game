@@ -35,11 +35,13 @@ public:
     void init();
     void appear(float wx, float wy, float vx, float vy);
     void update();
+    void damage();
 private:
     void Move();
     void randomMove();
     void Launch();
     void CollisionWithMap();
     void draw();
+    void appearPortion();
 };
 

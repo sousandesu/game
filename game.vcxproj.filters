@@ -55,6 +55,11 @@
     <ClCompile Include="PLAYER_BULLET.cpp" />
     <ClCompile Include="ENEMY_2.cpp" />
     <ClCompile Include="ENEMY_2_BULLET.cpp" />
+    <ClCompile Include="BOSS.cpp" />
+    <ClCompile Include="BOSS_BULLET_1.cpp" />
+    <ClCompile Include="BOSS_BULLET_2.cpp" />
+    <ClCompile Include="BOSS_BULLET_3.cpp" />
+    <ClCompile Include="HEALINGPORTION.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc">
@@ -95,6 +100,11 @@
     <ClInclude Include="PLAYER_BULLET.h" />
     <ClInclude Include="ENEMY_2.h" />
     <ClInclude Include="ENEMY_2_BULLET.h" />
+    <ClInclude Include="BOSS.h" />
+    <ClInclude Include="BOSS_BULLET_1.h" />
+    <ClInclude Include="BOSS_BULLET_2.h" />
+    <ClInclude Include="BOSS_BULLET_3.h" />
+    <ClInclude Include="HEALINGPORTION.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\map1.txt" />

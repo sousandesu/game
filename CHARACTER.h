@@ -1,5 +1,6 @@
 #pragma once
 #include "GAME_OBJECT.h"
+#include"libOne.h"
 class CHARACTER :
     public GAME_OBJECT
 {

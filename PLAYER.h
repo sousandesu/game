@@ -9,6 +9,7 @@ public:
         int leftAnimId = 1;
         int upAnimId = 2;
         int downAnimId = 3;
+        int Maxhp = 0;
         float curWx = 0;
         float curWy = 0;
         float px = 0;
@@ -31,8 +32,16 @@ public:
 private:
     void Launch();
     void Move();
-    void CollisionWithMap();
+    //void CollisionWithMap();
+
+    //ï™ÇØÇΩóùóRÇÕï«Ç∏ÇËÇ≈Ç´ÇÈÇÊÇ§Ç…
+    void CollisionWithWidthMap();
+    void CollisionWithHeightMap();
+
     void CheckState();
+
+    void normalize(float* ovx, float* ovy, float ivx, float ivy);
+    
 public:
     void draw();
     void damage();
@@ -42,6 +51,7 @@ public:
     float overCenterVx();
     float overCenterVy();
     int hp() { return Chara.hp; }
+    void healingHp();
     float px() { return Player.px; }
     float py() { return Player.py; }
 };

@@ -5,6 +5,8 @@
 #include"PLAYER.h"
 #include"ENEMY_1.h"
 #include"ENEMY_2.h"
+#include"BOSS.h"
+#include"BOSS_BULLET_3.h"
 #include"CHARACTER_MANAGER.h"
 #include"HIT_POINT.h"
 class CONTAINER
@@ -21,6 +23,13 @@ class CONTAINER
 		CHARACTER::DATA enemy_2Chara;
 		ENEMY_2::DATA enemy_2;
 		CHARACTER::DATA enemy_2BulletChara;
+		CHARACTER::DATA bossChara;
+		BOSS::DATA boss;
+		CHARACTER::DATA bossBullet_1Chara;
+		CHARACTER::DATA bossBullet_2Chara;
+		CHARACTER::DATA bossBullet_3Chara;
+		BOSS_BULLET_3::DATA bossBullet_3;
+		CHARACTER::DATA healingPortionChara;
 		CHARACTER_MANAGER::DATA charaMng;
 		HIT_POINT::DATA hitpoint;
 	};

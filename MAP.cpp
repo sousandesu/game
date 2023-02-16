@@ -6,11 +6,13 @@ MAP::MAP(class GAME* game) :
 }
 MAP::~MAP() {
     if (Map.data) { delete[] Map.data; Map.data = 0; }
+    if (Map.backdata) { delete[] Map.backdata; Map.backdata = 0; }
 }
 void MAP::create() {
     Map = game()->container()->data().map;
 }
 void MAP::init() {
+    backmapinit();
     //ファイルを開く
     FILE* fp;
     fopen_s(&fp, Map.fileName, "rb");
@@ -61,13 +63,56 @@ void MAP::init() {
     Map.wy = 0.0f;//現在表示しているワールド座標
 
 }
+void MAP::backmapinit()
+{
+    FILE* fp;
+    fopen_s(&fp, Map.backFileName, "rb");
+    WARNING(fp == 0, "マップデータを読み込めません", Map.backFileName);
+    //ファイルサイズ取得
+    fseek(fp, 0, SEEK_END);
+    int fileSize = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    //リトライ時、Dataは0でないので開放。
+    if (Map.backdata) { delete[] Map.backdata; Map.backdata = 0; }
+    //サイズ分のdata配列を用意する
+    Map.backdata = new char[fileSize];
+    //データを読み込む
+    fread(Map.backdata, sizeof(char), fileSize, fp);
+    fclose(fp);
+    //行数、列数を数える（最後の行も必ず改行して終わっていることが条件）
+    Map.backrows = 0;
+    Map.backcols = 0;//改行２文字分を含んだ列数になる
+    int cnt = 0;
+    for (int i = 0; i < fileSize; i++) {
+        cnt++;
+        //行の最後の文字
+        if (Map.backdata[i] == '\n') {
+            if (Map.backrows == 0) {
+                //最初の行の列数
+                Map.backcols = cnt;
+            }
+            else if (Map.backcols != cnt) {
+                //行ごとの列数が違ったらエラー
+                WARNING(1, "列数が不揃い", "");
+            }
+            //行を数えてカウンタをリセット
+            Map.backrows++;
+            cnt = 0;
+        }
+    }
+    if (fileSize % Map.backcols != 0) {
+        WARNING(1, "最後の行を改行していない", "");
+    }
+    Map.backDispCols =(int)width / Map.backwidth  + 1;//表示すべき列数
+    //多分dispRows必要
+}
 void MAP::update() {
     //プレイヤーが画面の中央を超えた分だけスクロール
-    //左右方向スクロール
-    Map.wx += game()->characterManager()->player()->overCenterVx();
-    //上下方向スクロール
-    Map.wy += game()->characterManager()->player()->overCenterVy();
-
+    
+        //左右方向スクロール
+        Map.wx += game()->characterManager()->player()->overCenterVx();
+        //上下方向スクロール
+        Map.wy += game()->characterManager()->player()->overCenterVy();
     
     if (Map.wy > Map.endWorldY) {
         Map.wy = Map.endWorldY;
@@ -83,8 +128,10 @@ void MAP::update() {
     }
 
 }
-void MAP::draw() {
 
+void MAP::draw()
+{
+    backmapdraw();
     int startCol = (int)Map.wx / Map.chipSize;//表示開始列
     int endCol = startCol + Map.dispCols;//表示終了列
     for (int c = startCol; c < endCol; c++) {
@@ -102,6 +149,26 @@ void MAP::draw() {
             else if (charaId >= 'a' && charaId <= 'z') {
                 game()->characterManager()->appear(charaId, wx, wy);
                 Map.data[r * Map.cols + c] = '.';
+            }
+        }
+    }
+}
+
+void MAP::backmapdraw() {
+
+    int startCol = (int)Map.wx / Map.backwidth ;//表示開始列
+    int endCol = startCol + Map.backDispCols;//表示終了列
+    for (int c = startCol; c < endCol; c++) {
+        float wx = (float)Map.backwidth * c;
+        for (int r = 0; r < Map.backrows; r++) {
+            float wy = (float)Map.backheight * r;
+            char charaId = Map.backdata[r * Map.backcols + c];
+            if (charaId >= '0' && charaId <= '9') {
+                float px = wx - Map.wx;
+                float py = wy - Map.wy;
+                if (charaId == '1') {
+                    image(Map.backImg, px, py);
+                }
             }
         }
     }

@@ -134,6 +134,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BOSS.cpp" />
+    <ClCompile Include="BOSS_BULLET_1.cpp" />
+    <ClCompile Include="BOSS_BULLET_2.cpp" />
+    <ClCompile Include="BOSS_BULLET_3.cpp" />
     <ClCompile Include="CHARACTER.cpp" />
     <ClCompile Include="CHARACTER_MANAGER.cpp" />
     <ClCompile Include="CONTAINER.cpp" />
@@ -144,6 +148,7 @@
     <ClCompile Include="GAME_CLEAR.cpp" />
     <ClCompile Include="GAME_OBJECT.cpp" />
     <ClCompile Include="GAME_OVER.cpp" />
+    <ClCompile Include="HEALINGPORTION.cpp" />
     <ClCompile Include="HIT_POINT.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MAP.cpp" />
@@ -157,6 +162,10 @@
     <ResourceCompile Include="resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BOSS.h" />
+    <ClInclude Include="BOSS_BULLET_1.h" />
+    <ClInclude Include="BOSS_BULLET_2.h" />
+    <ClInclude Include="BOSS_BULLET_3.h" />
     <ClInclude Include="CHARACTER.h" />
     <ClInclude Include="CHARACTER_MANAGER.h" />
     <ClInclude Include="CONTAINER.h" />
@@ -167,6 +176,7 @@
     <ClInclude Include="GAME_CLEAR.h" />
     <ClInclude Include="GAME_OBJECT.h" />
     <ClInclude Include="GAME_OVER.h" />
+    <ClInclude Include="HEALINGPORTION.h" />
     <ClInclude Include="HIT_POINT.h" />
     <ClInclude Include="MAP.h" />
     <ClInclude Include="PLAYER.h" />

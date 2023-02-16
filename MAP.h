@@ -6,14 +6,21 @@ class MAP :
 public:
     struct DATA {
         const char* fileName = 0;
+        const char* backFileName = 0;
         int backImg = 0;
         int treeImg = 0;
         int chipSize = 0; //正方形マップチップ画像の一辺のドット数
+        int backwidth = 0;//9600
+        int backheight = 0;//4320
         char* data = 0; //データ配列のポインタ
+        char* backdata = 0;
         int cols = 0; //データの列数
         int rows = 0; //データの行数
+        int backcols = 0;
+        int backrows = 0;
         int dispCols = 0;
         int dispRows = 0;
+        int backDispCols = 0;
         float wx = 0;//world position x
         float wy = 0;//world position y
         float worldWidth = 0;
@@ -31,6 +38,11 @@ public:
         ENEMY_1_ID = 'c',
         ENEMY_2_ID = 'd',
         ENEMY_2_BULLET_ID = 'e',
+        BOSS_ID = 'f',
+        BOSS_BULLET_1_ID = 'g',
+        BOSS_BULLET_2_ID = 'h',
+        BOSS_BULLET_3_ID = 'i',
+        HEALINGPORTION_ID = 'j',
     };
 private:
     DATA Map;
@@ -39,8 +51,10 @@ public:
     ~MAP();
     void create();
     void init();
+    void backmapinit();
     void update();
     void draw();
+    void backmapdraw();
     float wx() { return Map.wx; }
     float wy() { return Map.wy; }
     int chipSize() { return Map.chipSize; }

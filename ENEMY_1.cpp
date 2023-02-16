@@ -1,6 +1,7 @@
 #include"CONTAINER.h"
 #include"GAME.h"
 #include"PLAYER.h"
+#include"HEALINGPORTION.h"
 #include"MAP.h"
 #include "ENEMY_1.h"
 
@@ -32,14 +33,24 @@ void ENEMY_1::update()
 	CollisionWithMap();
 }
 
+void ENEMY_1::damage()
+{
+	if (Chara.hp > 0) {
+		Chara.hp--;
+		if (Chara.hp == 0) {
+			appearPortion();
+		}
+	}
+}
+
 void ENEMY_1::Move()
 {
 	randomMove();
 	dashMove();
 	
-	//  移動前に現在のChara.wxをPlayer.curWxにとっておく
+	//  移動前に現在のChara.wxをEnemy_1.curWxにとっておく
 	Enemy_1.curWx = Chara.wx;
-	//  移動前に現在のChara.wyをPlayer.curWyにとっておく
+	//  移動前に現在のChara.wyをEnemy_1.curWyにとっておく
 	Enemy_1.curWy = Chara.wy;
 	//  移動
 	if (Chara.vx != 0.0f || Chara.vy != 0.0f) {//左右上下キー入力あり
@@ -158,5 +169,13 @@ void ENEMY_1::draw()
 	Enemy_1.py = Chara.wy - game()->map()->wy();
 	fill(0, 0, 255);
 	rect(Enemy_1.px, Enemy_1.py, 128, 128);
+}
+
+void ENEMY_1::appearPortion()
+{
+	int num = random() % 100;
+	if (num >= 0) {
+		game()->characterManager()->healingportion()->appear(Chara.wx, Chara.wy, Chara.vx, Chara.vy);
+	}
 }
 

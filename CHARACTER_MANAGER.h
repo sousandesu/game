@@ -10,12 +10,18 @@ public:
         int numEnemies_1 = 0;
         int numEnemies_2 = 0;
         int numEnemies_2Bullets = 0;
+        int numBosses = 0;
+        int numBossesBullets_1 = 0;
+        int numBossesBullets_2 = 0;
+        int numBossesBullets_3 = 0;
+        int numHealingPortions = 0;
     };
 private:
     int Total = 0;
     DATA CharaMng;
     class CHARACTER** Characters = nullptr;
     class PLAYER* Player = nullptr;
+    class HEALINGPORTION* Healingportion = nullptr;
 public:
     CHARACTER_MANAGER(class GAME* game);
     ~CHARACTER_MANAGER();
@@ -25,5 +31,6 @@ public:
     void update();
     void draw();
     class PLAYER* player() { return Player; }
+    class HEALINGPORTION* healingportion() { return Healingportion; }
 };
 

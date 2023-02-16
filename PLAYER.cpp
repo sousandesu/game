@@ -2,6 +2,7 @@
 #include"GAME.h"
 #include"MAP.h"
 #include "PLAYER.h"
+#include<math.h>
 void PLAYER::create()
 {
     Chara = game()->container()->data().playerChara;
@@ -21,7 +22,7 @@ void PLAYER::update()
 {
     Launch();
     Move();
-    CollisionWithMap();
+    //CollisionWithMap(); moveでコリジョンしてる
     CheckState();
     judgeInvincibleTime();
 }
@@ -64,8 +65,9 @@ void PLAYER::Launch()
 
 void PLAYER::Move()
 {
+
     //左右上下移動
-    //　移動ベクトルを決定
+    //移動ベクトルを決定
     Chara.vx = 0.0f;
     Chara.vy = 0.0f;
     if (isPress(KEY_A)) {
@@ -92,8 +94,11 @@ void PLAYER::Move()
     if (Chara.vx != 0.0f || Chara.vy != 0.0f) {//左右上下キー入力あり
         //とりあえず「次に移動する予定」の位置としてChara.wxを更新しておき
         //あとで、マップに食い込んでいたら、元のPlayer.curWxに戻す
-        Chara.wx += Chara.vx;
-        Chara.wy += Chara.vy;
+        normalize(&Chara.vx, &Chara.vy, Chara.vx, Chara.vy);
+        Chara.wx += Chara.vx * Chara.speed * delta;
+        CollisionWithWidthMap();
+        Chara.wy += Chara.vy * Chara.speed * delta;
+        CollisionWithHeightMap();
     }
     //else {//左右上下キー入力がないとき
     //    Chara.animData.imgIdx = 0;
@@ -101,12 +106,12 @@ void PLAYER::Move()
     //}ANIMclassができたらやる
 }
 
-void PLAYER::CollisionWithMap()
+/*void PLAYER::CollisionWithMap()
 {
     MAP* map = game()->map();
-
+    
     // マップチップとキャラの右
-    if (map->collisionCharaRight(wLeft(),wTop(),wRight(),wBottom())) {
+    if (map->collisionCharaRight(wLeft(), wTop(), wRight(), wBottom())) {
         //移動予定位置がマップに食い込んでいるので現在の位置に戻す
         Chara.wx = Player.curWx;
     }
@@ -114,6 +119,35 @@ void PLAYER::CollisionWithMap()
     else if (map->collisionCharaLeft(wLeft(), wTop(), wRight(), wBottom())) {
         Chara.wx = Player.curWx;
     }
+    // マップチップとキャラの上
+    if (map->collisionCharaTop(wLeft(), wTop(), wRight(), wBottom())) {
+        Chara.wy = Player.curWy;
+    }
+    // マップチップとキャラの下
+    else if (map->collisionCharaBottom(wLeft(), wTop(), wRight(), wBottom())) {
+        Chara.wy = Player.curWy;
+    }
+}*/
+
+void PLAYER::CollisionWithWidthMap()
+{
+    MAP* map = game()->map();
+
+    // マップチップとキャラの右
+    if (map->collisionCharaRight(wLeft(), wTop(), wRight(), wBottom())) {
+        //移動予定位置がマップに食い込んでいるので現在の位置に戻す
+        Chara.wx = Player.curWx;
+    }
+    // マップチップとキャラの左
+    else if (map->collisionCharaLeft(wLeft(), wTop(), wRight(), wBottom())) {
+        Chara.wx = Player.curWx;
+    }
+}
+
+void PLAYER::CollisionWithHeightMap()
+{
+    MAP* map = game()->map();
+
     // マップチップとキャラの上
     if (map->collisionCharaTop(wLeft(), wTop(), wRight(), wBottom())) {
         Chara.wy = Player.curWy;
@@ -140,7 +174,7 @@ void PLAYER::draw()
 void PLAYER::damage()
 {
     if (Chara.hp > 0 && Player.invincibleTime <= 0) {
-        Player.invincibleTime = Player.invincibleInterval;
+        Player.invincibleTime = Player.invincibleInterval * delta;
         Chara.hp--;
         if (Chara.hp == 0) {
             State = STATE::DIED;
@@ -190,3 +224,19 @@ float PLAYER::overCenterVy()
     return overCenterVy;
 }
 
+void PLAYER::normalize(float* ovx, float* ovy, float ivx, float ivy) {
+    float l = sqrtf(ivx * ivx + ivy * ivy);
+    if (l != 0.0f) {
+        *ovx = ivx / l;
+        *ovy = ivy / l;
+    }
+    else {
+        *ovx = ivx;
+        *ovy = ivy;
+    }
+}
+
+void PLAYER::healingHp() 
+{
+    if (Chara.hp < Player.Maxhp) Chara.hp++;
+}

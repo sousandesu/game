@@ -1,6 +1,7 @@
 #include"CONTAINER.h"
 #include"GAME.h"
 #include"PLAYER.h"
+#include"HEALINGPORTION.h"
 #include"MAP.h"
 #include "ENEMY_2.h"
 
@@ -29,14 +30,23 @@ void ENEMY_2::update()
 	Launch();
 	CollisionWithMap();
 }
+void ENEMY_2::damage()
+{
+	if (Chara.hp > 0) {
+		Chara.hp--;
+		if (Chara.hp == 0) {
+			appearPortion();
+		}
+	}
+}
 void ENEMY_2::Move()
 {
 	if (!Enemy_2.launchFlag) {
 		randomMove();
 
-		//  移動前に現在のChara.wxをPlayer.curWxにとっておく
+		//  移動前に現在のChara.wxをEnemy_2.curWxにとっておく
 		Enemy_2.curWx = Chara.wx;
-		//  移動前に現在のChara.wyをPlayer.curWyにとっておく
+		//  移動前に現在のChara.wyをEnemy_2.curWyにとっておく
 		Enemy_2.curWy = Chara.wy;
 		//  移動
 		if (Chara.vx != 0.0f || Chara.vy != 0.0f) {//左右上下キー入力あり
@@ -137,13 +147,13 @@ void ENEMY_2::Launch() {
 	}
 	else {
 		if (Enemy_2.waitingTime <= 0 && Enemy_2.dontLaunchTime <= 0) {
-			Enemy_2.waitingTime = Enemy_2.waitingInterval;
+			Enemy_2.waitingTime = Enemy_2.waitingInterval * delta;
 		}
 		if (Enemy_2.waitingTime > 0 && Enemy_2.dontLaunchTime <= 0) {
 			Enemy_2.waitingTime -= delta;
 			if (Enemy_2.waitingTime <= 0) {
 				Enemy_2.launchFlag = false;
-				Enemy_2.dontLaunchTime = Enemy_2.dontLaunchInterval;
+				Enemy_2.dontLaunchTime = Enemy_2.dontLaunchInterval * delta;
 			}
 		}
 		if (Enemy_2.dontLaunchTime > 0) {
@@ -187,4 +197,11 @@ void ENEMY_2::draw()
 	rect(Enemy_2.px, Enemy_2.py, 128, 128);
 }
 
-//敵の弾と無敵時間や待機時間をどうデルタにするか
+void ENEMY_2::appearPortion()
+{
+	int num = random() % 100;
+	if (num >= 0) {
+		game()->characterManager()->healingportion()->appear(Chara.wx, Chara.wy, Chara.vx, Chara.vy);
+	}
+}
+
