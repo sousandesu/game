@@ -8,9 +8,9 @@ void CONTAINER::load()
 
 void CONTAINER::setData()
 {
-	Data.title.backPos.x = 0;
-	Data.title.backPos.y = 0;
-	Data.title.printSize = 200;
+	Data.title.backpx = 0;
+	Data.title.backpy = 0;
+	Data.title.backColor = COLOR(255, 255, 255, 255);
 
 	Data.map.fileName = "assets\\map1.txt";
 	Data.map.chipSize = 128;
@@ -23,7 +23,7 @@ void CONTAINER::setData()
 	Data.playerChara.charaId = MAP::PLAYER_ID;
 	Data.playerChara.hp = 6;
 	Data.playerChara.groupId = 0;//味方グループは0
-	Data.playerChara.speed = 10.4f * 60;
+	Data.playerChara.speed = 6.7f * 60;
 	Data.playerChara.offsetLeft = 4.0f;//仮
 	Data.playerChara.offsetTop = 4.0f;//仮
 	Data.playerChara.offsetRight = 124.0f;//仮
@@ -35,9 +35,12 @@ void CONTAINER::setData()
 	Data.player.Maxhp = 6;
 	Data.player.bulletOffsetX = 128.0f;//仮
 	Data.player.bulletOffsetY = 128.0f;//仮
+	Data.player.chargeShotTime = 0;
+	Data.player.chargeShotInterval = 90.0f;
 	Data.player.invincibleTime = 0;
 	Data.player.invincibleInterval = 60.0f;
 	Data.player.bulletCharaId = MAP::PLAYER_BULLET_ID;
+	Data.player.bullet2CharaId = MAP::PLAYER_BULLET2_ID;
 
 	Data.playerBulletChara.charaId = MAP::PLAYER_BULLET_ID;
 	Data.playerBulletChara.groupId = 2;//味方バレットグループは2
@@ -47,6 +50,16 @@ void CONTAINER::setData()
 	Data.playerBulletChara.offsetTop = 0.0f;//仮
 	Data.playerBulletChara.offsetRight = 64.0f;//仮
 	Data.playerBulletChara.offsetBottom = 64.0f;//仮
+	Data.playerBulletChara.color = COLOR(255, 255, 255, 255);
+
+	Data.playerBullet2Chara.charaId = MAP::PLAYER_BULLET2_ID;
+	Data.playerBullet2Chara.groupId = 2;//味方バレットグループは2
+	Data.playerBullet2Chara.hp = 4;
+	Data.playerBullet2Chara.speed = 11.7f * 60;//仮
+	Data.playerBullet2Chara.offsetLeft = 0.0f;//仮
+	Data.playerBullet2Chara.offsetTop = 0.0f;//仮
+	Data.playerBullet2Chara.offsetRight = 64.0f;//仮
+	Data.playerBullet2Chara.offsetBottom = 64.0f;//仮
 
 	Data.enemy_1Chara.charaId = MAP::ENEMY_1_ID;
 	Data.enemy_1Chara.groupId = 1;//敵グループは1
@@ -56,6 +69,7 @@ void CONTAINER::setData()
 	Data.enemy_1Chara.offsetRight = 124.0f;//仮
 	Data.enemy_1Chara.offsetTop = 4.0f;//仮
 	Data.enemy_1Chara.offsetBottom = 124.0f;//仮
+	Data.enemy_1Chara.color = COLOR(255, 255, 255, 255);
 	Data.enemy_1.rightAnimId = 0;
 	Data.enemy_1.leftAnimId = 1;
 	Data.enemy_1.upAnimId = 2;
@@ -163,17 +177,30 @@ void CONTAINER::setData()
 	Data.healingPortionChara.offsetTop = 0.0f;
 	Data.healingPortionChara.offsetRight = 128.0f;
 	Data.healingPortionChara.offsetBottom = 128.0f;
+	Data.healingPortionChara.color = COLOR(255, 255, 255, 255);
+
+	Data.powerupItemChara.charaId = MAP::POWERUP_ITEM_ID;
+	Data.powerupItemChara.groupId = 4;//アイテムグループは4
+	Data.powerupItemChara.hp = 1;
+	Data.powerupItemChara.speed = 0.0f * 60;
+	Data.powerupItemChara.offsetLeft = 0.0f;
+	Data.powerupItemChara.offsetTop = 0.0f;
+	Data.powerupItemChara.offsetRight = 128.0f;
+	Data.powerupItemChara.offsetBottom = 128.0f;
+	Data.powerupItemChara.color = COLOR(255, 255, 255, 255);
 
 	Data.charaMng.numPlayers = 1;
 	Data.charaMng.numPlayerBullets = 3;
+	Data.charaMng.numPlayerBullets2 = 2;
 	Data.charaMng.numEnemies_1 = 3;
-	Data.charaMng.numEnemies_2 = 3;
+	Data.charaMng.numEnemies_2 = 5;
 	Data.charaMng.numEnemies_2Bullets = 20;
 	Data.charaMng.numBosses = 1;
 	Data.charaMng.numBossesBullets_1 = 8;
 	Data.charaMng.numBossesBullets_2 = 24;
 	Data.charaMng.numBossesBullets_3 = 16;
 	Data.charaMng.numHealingPortions = 1;
+	Data.charaMng.numPowerupItems = 1;
 
 	Data.hitpoint.px = 0;
 	Data.hitpoint.py = 0;
@@ -185,8 +212,40 @@ void CONTAINER::setData()
 void CONTAINER::LoadGraphics()
 {
 
+	Data.title.backImg = loadImage("assets\\title.png");
+
 	Data.map.backImg = loadImage("assets\\zentaimap.png");
 	Data.map.treeImg = loadImage("assets\\tree.png");
+
+	Data.playerBullet.rightImg = loadImage("assets\\player_magic_right.png");
+	Data.playerBullet.leftImg = loadImage("assets\\player_magic_left.png");
+	Data.playerBullet.upImg = loadImage("assets\\player_magic_up.png");
+	Data.playerBullet.downImg = loadImage("assets\\player_magic_down.png");
+
+	Data.enemy_1.rightImg = loadImage("assets\\konbo_right.png");
+	Data.enemy_1.leftImg = loadImage("assets\\konbo_left.png");
+	Data.enemy_1.upImg = loadImage("assets\\konbo_up.png");
+	Data.enemy_1.downImg = loadImage("assets\\konbo_down.png");
+
+	Data.enemy_2.rightImg = loadImage("assets\\yumi_right.png");
+	Data.enemy_2.leftImg = loadImage("assets\\yumi_left.png");
+	Data.enemy_2.upImg = loadImage("assets\\yumi_up.png");
+	Data.enemy_2.downImg = loadImage("assets\\yumi_down.png");
+
+	Data.enemy_2Bullet.rightImg = loadImage("assets\\ya_right.png");
+	Data.enemy_2Bullet.leftImg = loadImage("assets\\ya_left.png");
+	Data.enemy_2Bullet.upImg = loadImage("assets\\ya_up.png");
+	Data.enemy_2Bullet.downImg = loadImage("assets\\ya_down.png");
+
+	Data.bossBullet_1Chara.img = loadImage("assets\\boss_bullet1.png");
+
+	Data.bossBullet_2Chara.img = loadImage("assets\\boss_bullet2.png");
+
+	Data.bossBullet_3Chara.img = loadImage("assets\\boss_bullet2.png");
+
+	Data.healingPortionChara.img = loadImage("assets\\portion.png");
+
+	Data.powerupItemChara.img = loadImage("assets\\grimoire.png");
 
 	Data.hitpoint.fullImg = loadImage("assets\\fullheart.png");
 	Data.hitpoint.halfImg = loadImage("assets\\halfheart.png");

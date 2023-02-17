@@ -16,14 +16,26 @@ void ENEMY_1::init()
 	Chara.hp = 0;
 	Chara.vx = 0.0f;
 	Chara.vy = 0.0f;
+	//Chara.wx = 0.0f;
+	//Chara.wy = 0.0f;
+	//Enemy_1.px = 0.0f;
+	//Enemy_1.py = 0.0f;
+	//Enemy_1.curWx = 0.0f;
+	//Enemy_1.curWy = 0.0f;
+	//Enemy_1.differenceX = 0.0f;
+	//Enemy_1.differenceY = 0.0f;
 	Enemy_1.dashFlag = false;
+	Enemy_1.moveFlag = false;
 }
 
 void ENEMY_1::appear(float wx, float wy, float vx, float vy)
 {
+
 	Chara.hp = game()->container()->data().enemy_1Chara.hp;
 	Chara.wx = wx;
 	Chara.wy = wy;
+	Enemy_1.differenceX = wx;
+	Enemy_1.differenceY = wy;
 	Chara.animId = Enemy_1.leftAnimId;
 }
 
@@ -75,15 +87,19 @@ void ENEMY_1::randomMove() {
 		Chara.vy = 0.0f;
 		if (Enemy_1.direction == 0) {
 			Chara.vx = Chara.speed * delta;
+			Chara.animId = Enemy_1.rightAnimId;
 		}
 		else if (Enemy_1.direction == 1) {
 			Chara.vx = -Chara.speed * delta;
+			Chara.animId = Enemy_1.leftAnimId;
 		}
 		else if (Enemy_1.direction == 2) {
 			Chara.vy = -Chara.speed * delta;
+			Chara.animId = Enemy_1.upAnimId;
 		}
 		else if (Enemy_1.direction == 3) {
 			Chara.vy = Chara.speed * delta;
+			Chara.animId = Enemy_1.downAnimId;
 		}
 	}
 	//前の座標からマップチップ分動いたらムーブをやめるかのif文
@@ -111,10 +127,12 @@ void ENEMY_1::dashMove() {
 			Enemy_1.dashFlag = true;
 			if (Enemy_1.px > game()->characterManager()->player()->px()) {
 				Chara.vx = -Enemy_1.dashspeed * delta;
+				Chara.animId = Enemy_1.leftAnimId;
 			}
 			else
 			{
 				Chara.vx = Enemy_1.dashspeed * delta;
+				Chara.animId = Enemy_1.rightAnimId;
 			}
 		}
 		//横の座標が同じなら縦に行く
@@ -123,10 +141,12 @@ void ENEMY_1::dashMove() {
 			Enemy_1.dashFlag = true;
 			if (Enemy_1.py > game()->characterManager()->player()->py()) {
 				Chara.vy = -Enemy_1.dashspeed * delta;
+				Chara.animId = Enemy_1.upAnimId;
 			}
 			else
 			{
 				Chara.vy = Enemy_1.dashspeed * delta;
+				Chara.animId = Enemy_1.downAnimId;
 			}
 		}
 	}
@@ -167,8 +187,19 @@ void ENEMY_1::draw()
 {
 	Enemy_1.px = Chara.wx - game()->map()->wx();
 	Enemy_1.py = Chara.wy - game()->map()->wy();
-	fill(0, 0, 255);
-	rect(Enemy_1.px, Enemy_1.py, 128, 128);
+	imageColor(Chara.color);
+	if (Chara.animId == Enemy_1.rightAnimId) {
+		image(Enemy_1.rightImg,Enemy_1.px,Enemy_1.py);
+	}
+	else if (Chara.animId == Enemy_1.leftAnimId) {
+		image(Enemy_1.leftImg, Enemy_1.px, Enemy_1.py);
+	}
+	else if (Chara.animId == Enemy_1.upAnimId) {
+		image(Enemy_1.upImg, Enemy_1.px, Enemy_1.py);
+	}
+	else if (Chara.animId == Enemy_1.downAnimId) {
+		image(Enemy_1.downImg, Enemy_1.px, Enemy_1.py);
+	}
 }
 
 void ENEMY_1::appearPortion()

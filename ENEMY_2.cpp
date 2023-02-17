@@ -16,12 +16,23 @@ void ENEMY_2::init()
 	Chara.hp = 0;
 	Chara.vx = 0.0f;
 	Chara.vy = 0.0f;
+	//Chara.wx = 0.0f;
+	//Chara.wy = 0.0f;
+	//Enemy_2.px = 0.0f;
+	//Enemy_2.py = 0.0f;
+	//Enemy_2.curWx = 0.0f;
+	//Enemy_2.curWy = 0.0f;
+	//Enemy_2.differenceX = 0.0f;
+	//Enemy_2.differenceY = 0.0f;
+	Enemy_2.moveFlag = false;
 }
 void ENEMY_2::appear(float wx, float wy, float vx, float vy)
 {
 	Chara.hp = game()->container()->data().enemy_2Chara.hp;
 	Chara.wx = wx;
 	Chara.wy = wy;
+	Enemy_2.differenceX = wx;
+	Enemy_2.differenceY = wy;
 	Chara.animId = Enemy_2.leftAnimId;
 }
 void ENEMY_2::update()
@@ -71,29 +82,33 @@ void ENEMY_2::randomMove() {
 		Chara.vy = 0.0f;
 		if (Enemy_2.direction == 0) {
 			Chara.vx = Chara.speed * delta;
+			Chara.animId = Enemy_2.rightAnimId;
 		}
 		else if (Enemy_2.direction == 1) {
 			Chara.vx = -Chara.speed * delta;
+			Chara.animId = Enemy_2.leftAnimId;
 		}
 		else if (Enemy_2.direction == 2) {
 			Chara.vy = -Chara.speed * delta;
+			Chara.animId = Enemy_2.upAnimId;
 		}
 		else if (Enemy_2.direction == 3) {
 			Chara.vy = Chara.speed * delta;
+			Chara.animId = Enemy_2.downAnimId;
 		}
 	//前の座標からマップチップ分動いたらムーブをやめるかのif文
-	if (Chara.wx > Enemy_2.differenceX + game()->map()->chipSize() ||
-		Chara.wx <Enemy_2.differenceX - game()->map()->chipSize() ||
-		Chara.wy > Enemy_2.differenceY + game()->map()->chipSize() ||
-		Chara.wy < Enemy_2.differenceY - game()->map()->chipSize()) {
+		if (Chara.wx > Enemy_2.differenceX + game()->map()->chipSize() ||
+			Chara.wx <Enemy_2.differenceX - game()->map()->chipSize()  ||
+			Chara.wy > Enemy_2.differenceY + game()->map()->chipSize() ||
+			Chara.wy < Enemy_2.differenceY - game()->map()->chipSize()) {
 
-		if ((Chara.wx > Enemy_2.differenceX + game()->map()->chipSize())) Chara.wx = Enemy_2.differenceX + game()->map()->chipSize();
-		if ((Chara.wx < Enemy_2.differenceX - game()->map()->chipSize())) Chara.wx = Enemy_2.differenceX - game()->map()->chipSize();
-		if ((Chara.wy > Enemy_2.differenceY + game()->map()->chipSize())) Chara.wy = Enemy_2.differenceY + game()->map()->chipSize();
-		if ((Chara.wy < Enemy_2.differenceY - game()->map()->chipSize())) Chara.wy = Enemy_2.differenceY - game()->map()->chipSize();
+			if ((Chara.wx > Enemy_2.differenceX + game()->map()->chipSize())) Chara.wx = Enemy_2.differenceX + game()->map()->chipSize();
+			if ((Chara.wx < Enemy_2.differenceX - game()->map()->chipSize())) Chara.wx = Enemy_2.differenceX - game()->map()->chipSize();
+			if ((Chara.wy > Enemy_2.differenceY + game()->map()->chipSize())) Chara.wy = Enemy_2.differenceY + game()->map()->chipSize();
+			if ((Chara.wy < Enemy_2.differenceY - game()->map()->chipSize())) Chara.wy = Enemy_2.differenceY - game()->map()->chipSize();
 
-		Enemy_2.moveFlag = false;
-	}
+			Enemy_2.moveFlag = false;
+		}
 }
 
 void ENEMY_2::Launch() {
@@ -112,6 +127,7 @@ void ENEMY_2::Launch() {
 				vy = 0.0f;
 				wx = Chara.wx;
 				wy = Chara.wy + Enemy_2.bulletOffsetY * vy;
+				Chara.animId = Enemy_2.leftAnimId;
 			}
 			else
 			{
@@ -120,6 +136,7 @@ void ENEMY_2::Launch() {
 				vy = 0.0f;
 				wx = Chara.wx + Enemy_2.bulletOffsetX * vx;
 				wy = Chara.wy + Enemy_2.bulletOffsetY * vy;
+				Chara.animId = Enemy_2.rightAnimId;
 			}
 			game()->characterManager()->appear(Enemy_2.bulletCharaId, wx, wy, vx, vy);
 		}
@@ -133,6 +150,7 @@ void ENEMY_2::Launch() {
 				vy = -1.0f;
 				wx = Chara.wx + Enemy_2.bulletOffsetX * vx;
 				wy = Chara.wy;
+				Chara.animId = Enemy_2.upAnimId;
 			}
 			else
 			{
@@ -141,6 +159,7 @@ void ENEMY_2::Launch() {
 				vy = 1.0f;
 				wx = Chara.wx + Enemy_2.bulletOffsetX * vx;
 				wy = Chara.wy + Enemy_2.bulletOffsetY * vy;
+				Chara.animId = Enemy_2.downAnimId;
 			}
 			game()->characterManager()->appear(Enemy_2.bulletCharaId, wx, wy, vx, vy);
 		}
@@ -193,8 +212,19 @@ void ENEMY_2::draw()
 {
 	Enemy_2.px = Chara.wx - game()->map()->wx();
 	Enemy_2.py = Chara.wy - game()->map()->wy();
-	fill(0, 0, 255);
-	rect(Enemy_2.px, Enemy_2.py, 128, 128);
+	imageColor(Chara.color);
+	if (Chara.animId == Enemy_2.rightAnimId) {
+		image(Enemy_2.rightImg, Enemy_2.px, Enemy_2.py);
+	}
+	else if (Chara.animId == Enemy_2.leftAnimId) {
+		image(Enemy_2.leftImg, Enemy_2.px, Enemy_2.py);
+	}
+	else if (Chara.animId == Enemy_2.upAnimId) {
+		image(Enemy_2.upImg, Enemy_2.px, Enemy_2.py);
+	}
+	else if (Chara.animId == Enemy_2.downAnimId) {
+		image(Enemy_2.downImg, Enemy_2.px, Enemy_2.py);
+	}
 }
 
 void ENEMY_2::appearPortion()

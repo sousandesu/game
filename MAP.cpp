@@ -108,12 +108,16 @@ void MAP::backmapinit()
 }
 void MAP::update() {
     //プレイヤーが画面の中央を超えた分だけスクロール
-    
+    if (Map.wx > 7030&&Map.wy<550) {
+        Map.wx += 3;
+        Map.wy += -3;
+    }
+    else {
         //左右方向スクロール
         Map.wx += game()->characterManager()->player()->overCenterVx();
         //上下方向スクロール
         Map.wy += game()->characterManager()->player()->overCenterVy();
-    
+    }
     if (Map.wy > Map.endWorldY) {
         Map.wy = Map.endWorldY;
     }
@@ -145,6 +149,9 @@ void MAP::draw()
                 if (charaId == '1') {
                     image(Map.treeImg, px, py);
                 }
+                else if (charaId == '2'&& Map.wx > 7030 && Map.wy < 560) {
+                    image(Map.treeImg, px, py);
+                }
             }
             else if (charaId >= 'a' && charaId <= 'z') {
                 game()->characterManager()->appear(charaId, wx, wy);
@@ -152,6 +159,8 @@ void MAP::draw()
             }
         }
     }
+    print(Map.wx);
+    print(Map.wy);
 }
 
 void MAP::backmapdraw() {
@@ -184,6 +193,9 @@ bool MAP::collisionCheck(float wx, float wy) {
     }
     //次の記述で座標がマップチップの中に入っているか判定できる
     if (Map.data[col + row * Map.cols] == '1') {
+        return true;
+    }
+    if (Map.data[col + row * Map.cols] == '2' && Map.wx > 7030 && Map.wy < 550) {
         return true;
     }
     return false;

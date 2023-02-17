@@ -33,10 +33,3 @@ void BOSS_BULLET_3::update()
         Chara.hp = 0;
     }
 }
-
-void BOSS_BULLET_3::draw()
-{
-    float px = Chara.wx - game()->map()->wx();
-    float py = Chara.wy - game()->map()->wy();
-    rect(px, py, 64, 64);
-}

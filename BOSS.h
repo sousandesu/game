@@ -50,7 +50,7 @@ public:
     void init();
     void appear(float wx, float wy, float vx, float vy);
     void update();
-
+    void damage();
     void normalize(float* ovx, float* ovy, float ivx, float ivy);
 
 

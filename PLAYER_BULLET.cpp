@@ -6,6 +6,7 @@
 void PLAYER_BULLET::create()
 {
 	Chara = game()->container()->data().playerBulletChara;
+    PlayerBullet = game()->container()->data().playerBullet;
 }
 
 void PLAYER_BULLET::appear(float wx, float wy, float vx, float vy)
@@ -23,6 +24,18 @@ void PLAYER_BULLET::update()
     Chara.wx += Chara.vx * (Chara.speed * delta);
     Chara.wy += Chara.vy * (Chara.speed * delta);
 
+    if (Chara.vx == 1.0f && Chara.vy == 0.0f) {
+        Chara.animId = PlayerBullet.rightId;
+    }
+    else if (Chara.vx == -1.0f && Chara.vy == 0.0f) {
+        Chara.animId = PlayerBullet.leftId;
+    }
+    else if (Chara.vx == 0.0f && Chara.vy == -1.0f) {
+        Chara.animId = PlayerBullet.upId;
+    }
+    else if (Chara.vx == 0.0f && Chara.vy == 1.0f) {
+        Chara.animId = PlayerBullet.downId;
+    }
     //マップ------------------------------------------------------------------------
     // 弾がウィンドウの外に出た
     if (Chara.wx < game()->map()->wDispLeft() ||
@@ -37,5 +50,18 @@ void PLAYER_BULLET::draw()
 {
     float px = Chara.wx - game()->map()->wx();
     float py = Chara.wy - game()->map()->wy();
-    rect(px, py, 64, 64);
+    imageColor(Chara.color);
+    if (Chara.animId == PlayerBullet.rightId) {
+        image(PlayerBullet.rightImg, px, py);
+    }
+    else if (Chara.animId == PlayerBullet.leftId) {
+        image(PlayerBullet.leftImg, px, py);
+    }
+    else if (Chara.animId == PlayerBullet.upId) {
+        image(PlayerBullet.upImg, px, py);
+    }
+    else if (Chara.animId == PlayerBullet.downId) {
+        image(PlayerBullet.downImg, px, py);
+    }
+
 }

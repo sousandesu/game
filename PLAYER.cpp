@@ -9,6 +9,12 @@ void PLAYER::create()
     Player = game()->container()->data().player;
 }
 
+void PLAYER::init()
+{
+    Chara.hp = 0;
+    Player.powerupFlag = false;
+}
+
 void PLAYER::appear(float wx, float wy, float vx, float vy)
 {
     Chara.hp = game()->container()->data().playerChara.hp;
@@ -30,38 +36,87 @@ void PLAYER::update()
 void PLAYER::Launch()
 {
     //’e”­ŽË
-    if (isTrigger(KEY_J)) {
-        float vx = 1.0f;
-        float vy = 1.0f;
-        float wx = 0.0f;
-        float wy = 0.0f;
-        if (Chara.animId == Player.rightAnimId) {
-            vx = 1.0f;
-            vy = 0.0f;
-            wx = Chara.wx + Player.bulletOffsetX * vx;
-            wy = Chara.wy + Player.bulletOffsetY * vy;
-        }
-        else if (Chara.animId == Player.leftAnimId) {
-            vx = -1.0f;
-            vy = 0.0f;
-            wx = Chara.wx;
-            wy = Chara.wy + Player.bulletOffsetY * vy;
-        }
-        else if (Chara.animId == Player.upAnimId) {
-            vx = 0.0f;
-            vy = -1.0f;
-            wx = Chara.wx + Player.bulletOffsetX * vx;
-            wy = Chara.wy;
-        }
-        else if (Chara.animId == Player.downAnimId) {
-            vx = 0.0f;
-            vy = 1.0f;
-            wx = Chara.wx + Player.bulletOffsetX * vx;
-            wy = Chara.wy + Player.bulletOffsetY * vy;
-        }
-        game()->characterManager()->appear(Player.bulletCharaId, wx, wy, vx, vy);
+    if (isTrigger(KEY_G)) {
+        oneShot();
     }
+    if (isPress(KEY_G) && Player.powerupFlag) {
+        Player.chargeShotTime -= delta;
+    }
+    if (!isPress(KEY_G) && Player.powerupFlag && Player.chargeShotTime < (-Player.chargeShotInterval) * delta) {
+        chargeShot();
+    }
+    if (!isPress(KEY_G) && Player.powerupFlag) {
+        Player.chargeShotTime = 0;
+    }
+
 }
+
+void PLAYER::oneShot()
+{
+    float vx = 1.0f;
+    float vy = 1.0f;
+    float wx = 0.0f;
+    float wy = 0.0f;
+    if (Chara.animId == Player.rightAnimId) {
+        vx = 1.0f;
+        vy = 0.0f;
+        wx = Chara.wx + Player.bulletOffsetX * vx;
+        wy = Chara.wy + Player.bulletOffsetY * vy;
+    }
+    else if (Chara.animId == Player.leftAnimId) {
+        vx = -1.0f;
+        vy = 0.0f;
+        wx = Chara.wx;
+        wy = Chara.wy + Player.bulletOffsetY * vy;
+    }
+    else if (Chara.animId == Player.upAnimId) {
+        vx = 0.0f;
+        vy = -1.0f;
+        wx = Chara.wx + Player.bulletOffsetX * vx;
+        wy = Chara.wy;
+    }
+    else if (Chara.animId == Player.downAnimId) {
+        vx = 0.0f;
+        vy = 1.0f;
+        wx = Chara.wx + Player.bulletOffsetX * vx;
+        wy = Chara.wy + Player.bulletOffsetY * vy;
+    }
+    game()->characterManager()->appear(Player.bulletCharaId, wx, wy, vx, vy);
+}
+
+void PLAYER::chargeShot()
+{
+    float vx = 1.0f;
+    float vy = 1.0f;
+    float wx = 0.0f;
+    float wy = 0.0f;
+    if (Chara.animId == Player.rightAnimId) {
+        vx = 1.0f;
+        vy = 0.0f;
+        wx = Chara.wx + Player.bulletOffsetX * vx;
+        wy = Chara.wy + Player.bulletOffsetY * vy;
+    }
+    else if (Chara.animId == Player.leftAnimId) {
+        vx = -1.0f;
+        vy = 0.0f;
+        wx = Chara.wx;
+        wy = Chara.wy + Player.bulletOffsetY * vy;
+    }
+    else if (Chara.animId == Player.upAnimId) {
+        vx = 0.0f;
+        vy = -1.0f;
+        wx = Chara.wx + Player.bulletOffsetX * vx;
+        wy = Chara.wy;
+    }
+    else if (Chara.animId == Player.downAnimId) {
+        vx = 0.0f;
+        vy = 1.0f;
+        wx = Chara.wx + Player.bulletOffsetX * vx;
+        wy = Chara.wy + Player.bulletOffsetY * vy;
+    }
+    game()->characterManager()->appear(Player.bullet2CharaId, wx, wy, vx, vy);
+}
+
 
 void PLAYER::Move()
 {
@@ -239,4 +294,9 @@ void PLAYER::normalize(float* ovx, float* ovy, float ivx, float ivy) {
 void PLAYER::healingHp() 
 {
     if (Chara.hp < Player.Maxhp) Chara.hp++;
+}
+
+void PLAYER::powerup()
+{
+    Player.powerupFlag = true;
 }

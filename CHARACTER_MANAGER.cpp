@@ -3,6 +3,7 @@
 #include"CHARACTER.h"
 #include"PLAYER.h"
 #include"PLAYER_BULLET.h"
+#include"PLAYER_BULLET2.h"
 #include"ENEMY_1.h"
 #include"ENEMY_2.h"
 #include"ENEMY_2_BULLET.h"
@@ -10,7 +11,8 @@
 #include"BOSS_BULLET_1.h"
 #include"BOSS_BULLET_2.h"
 #include"BOSS_BULLET_3.h"
-#include "HEALINGPORTION.h"
+#include"HEALINGPORTION.h"
+#include"POWERUP_ITEM.h"
 #include "CHARACTER_MANAGER.h"
 
 CHARACTER_MANAGER::CHARACTER_MANAGER(GAME* game):
@@ -33,6 +35,7 @@ void CHARACTER_MANAGER::create()
     Total = 0;
     Total += CharaMng.numPlayers;
     Total += CharaMng.numPlayerBullets;
+    Total += CharaMng.numPlayerBullets2;
     Total += CharaMng.numEnemies_1;
     Total += CharaMng.numEnemies_2;
     Total += CharaMng.numEnemies_2Bullets;
@@ -41,6 +44,7 @@ void CHARACTER_MANAGER::create()
     Total += CharaMng.numBossesBullets_2;
     Total += CharaMng.numBossesBullets_3;
     Total += CharaMng.numHealingPortions;
+    Total += CharaMng.numPowerupItems;
    
     Characters = new CHARACTER * [Total];
 
@@ -49,6 +53,7 @@ void CHARACTER_MANAGER::create()
     int i, j = 0;
     for (i = 0; i < CharaMng.numPlayers; i++)         Characters[j++] = Player;
     for (i = 0; i < CharaMng.numPlayerBullets; i++)   Characters[j++] = new PLAYER_BULLET(game());
+    for (i = 0; i < CharaMng.numPlayerBullets2; i++)   Characters[j++] = new PLAYER_BULLET2(game());
     for (i = 0; i < CharaMng.numEnemies_1; i++)       Characters[j++] = new ENEMY_1(game());
     for (i = 0; i < CharaMng.numEnemies_2; i++)       Characters[j++] = new ENEMY_2(game());
     for (i = 0; i < CharaMng.numEnemies_2Bullets; i++)Characters[j++] = new ENEMY_2_BULLET(game());
@@ -57,6 +62,7 @@ void CHARACTER_MANAGER::create()
     for (i = 0; i < CharaMng.numBossesBullets_2; i++) Characters[j++] = new BOSS_BULLET_2(game());
     for (i = 0; i < CharaMng.numBossesBullets_3; i++) Characters[j++] = new BOSS_BULLET_3(game());
     for (i = 0; i < CharaMng.numHealingPortions; i++) Characters[j++] = Healingportion;
+    for (i = 0; i < CharaMng.numPowerupItems; i++)    Characters[j++] = new POWERUP_ITEM(game());
     for (int i = 0; i < Total; i++) {
         Characters[i]->create();
     }

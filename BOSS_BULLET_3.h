@@ -16,6 +16,5 @@ public:
     void create();
     void appear(float wx, float wy, float vx, float vy);
     void update();
-    void draw();
 };
 

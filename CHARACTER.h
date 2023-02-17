@@ -9,6 +9,10 @@ public:
 
         int animId = 0;
 
+        int img = 0;
+
+        COLOR color;
+
         char charaId = 0;
         int groupId = 0;
         float wx = 0;

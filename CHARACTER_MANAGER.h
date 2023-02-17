@@ -7,6 +7,7 @@ public:
     struct DATA {
         int numPlayers = 0;
         int numPlayerBullets = 0;
+        int numPlayerBullets2 = 0;
         int numEnemies_1 = 0;
         int numEnemies_2 = 0;
         int numEnemies_2Bullets = 0;
@@ -15,6 +16,7 @@ public:
         int numBossesBullets_2 = 0;
         int numBossesBullets_3 = 0;
         int numHealingPortions = 0;
+        int numPowerupItems = 0;
     };
 private:
     int Total = 0;

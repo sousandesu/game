@@ -9,6 +9,12 @@ public:
         int leftAnimId = 1;
         int upAnimId = 2;
         int downAnimId = 3;
+
+        int rightImg = 0;
+        int leftImg = 0;
+        int upImg = 0;
+        int downImg = 0;
+
         float curWx = 0;
         float curWy = 0;
         float px = 0;

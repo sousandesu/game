@@ -14,7 +14,11 @@ public:
         float curWy = 0;
         float px = 0;
         float py = 0;
+        bool powerupFlag = false;
+        float chargeShotTime = 0;
+        float chargeShotInterval = 0;
         char bulletCharaId = 0;
+        char bullet2CharaId = 0;
         float bulletOffsetX = 0;
         float bulletOffsetY = 0;
         float invincibleTime = 0;
@@ -27,10 +31,13 @@ private:
 public:
     PLAYER(class GAME* game) :CHARACTER(game) {}
     void create();
+    void init();
     void appear(float wx, float wy, float vx, float vy);
     void update();
 private:
     void Launch();
+    void oneShot();
+    void chargeShot();
     void Move();
     //void CollisionWithMap();
 
@@ -52,6 +59,7 @@ public:
     float overCenterVy();
     int hp() { return Chara.hp; }
     void healingHp();
+    void powerup();
     float px() { return Player.px; }
     float py() { return Player.py; }
 };

@@ -154,6 +154,8 @@
     <ClCompile Include="MAP.cpp" />
     <ClCompile Include="PLAYER.cpp" />
     <ClCompile Include="PLAYER_BULLET.cpp" />
+    <ClCompile Include="PLAYER_BULLET2.cpp" />
+    <ClCompile Include="POWERUP_ITEM.cpp" />
     <ClCompile Include="SCENE.cpp" />
     <ClCompile Include="STAGE.cpp" />
     <ClCompile Include="TITLE.cpp" />
@@ -181,6 +183,8 @@
     <ClInclude Include="MAP.h" />
     <ClInclude Include="PLAYER.h" />
     <ClInclude Include="PLAYER_BULLET.h" />
+    <ClInclude Include="PLAYER_BULLET2.h" />
+    <ClInclude Include="POWERUP_ITEM.h" />
     <ClInclude Include="SCENE.h" />
     <ClInclude Include="STAGE.h" />
     <ClInclude Include="TITLE.h" />

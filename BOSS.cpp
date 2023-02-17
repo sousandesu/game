@@ -17,6 +17,10 @@ void BOSS::init()
 	Chara.hp = 0;
 	Chara.vx = 0.0f;
 	Chara.vy = 0.0f;
+	Boss.nextLaunchPattern = 0;
+	Boss.numLaunchBullet = 0;
+	Boss.waitingTime = 0;
+	Boss.launchFlag = 0;
 }
 
 void BOSS::appear(float wx, float wy, float vx, float vy)
@@ -32,6 +36,7 @@ void BOSS::update()
 	Launch();
 	CollisionWithMap();
 }
+		//とりあえず「次に移動する予定」の位置としてChara.wxを更新しておき
 
 void BOSS::Move()
 {
@@ -43,7 +48,6 @@ void BOSS::Move()
 	Boss.curWy = Chara.wy;
 	//  移動
 	if (Chara.vx != 0.0f || Chara.vy != 0.0f) {//左右上下キー入力あり
-		//とりあえず「次に移動する予定」の位置としてChara.wxを更新しておき
 		//あとで、マップに食い込んでいたら、元のPlayer.curWxに戻す
 		Chara.wx += Chara.vx;
 		Chara.wy += Chara.vy;
@@ -240,6 +244,16 @@ void BOSS::draw()
 	Boss.py = Chara.wy - game()->map()->wy();
 	fill(0, 0, 255);
 	rect(Boss.px, Boss.py, 384, 384);
+}
+
+void BOSS::damage()
+{
+	if (Chara.hp > 0) {
+		Chara.hp--;
+		if (Chara.hp == 0) {
+			game()->changeScene(GAME::GAME_CLEAR_ID);
+		}
+	}
 }
 
 void BOSS::normalize(float* ovx,float* ovy,	float ivx,	float ivy) {

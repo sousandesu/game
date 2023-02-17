@@ -1,10 +1,10 @@
 #pragma once
 #include "CHARACTER.h"
-class HEALINGPORTION :
+class POWERUP_ITEM :
     public CHARACTER
 {
 public:
-    HEALINGPORTION(class GAME* game) :CHARACTER(game) {}
+    POWERUP_ITEM(class GAME* game) :CHARACTER(game) {}
     void create();
     void damage();
 };

@@ -19,9 +19,8 @@ void TITLE::create()
 void TITLE::draw()
 {
 	clear();
-	printSize(Title.printSize);
-	print("Title");
-	print("SPACEÇ≈êÿÇËë÷Ç¶");
+	imageColor(Title.backColor);
+	image(Title.backImg, 0, 0);
 }
 
 void TITLE::nextScene()

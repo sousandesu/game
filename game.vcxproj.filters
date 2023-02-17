@@ -60,6 +60,8 @@
     <ClCompile Include="BOSS_BULLET_2.cpp" />
     <ClCompile Include="BOSS_BULLET_3.cpp" />
     <ClCompile Include="HEALINGPORTION.cpp" />
+    <ClCompile Include="POWERUP_ITEM.cpp" />
+    <ClCompile Include="PLAYER_BULLET2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc">
@@ -105,6 +107,8 @@
     <ClInclude Include="BOSS_BULLET_2.h" />
     <ClInclude Include="BOSS_BULLET_3.h" />
     <ClInclude Include="HEALINGPORTION.h" />
+    <ClInclude Include="POWERUP_ITEM.h" />
+    <ClInclude Include="PLAYER_BULLET2.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="assets\map1.txt" />

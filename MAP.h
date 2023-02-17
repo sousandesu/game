@@ -43,6 +43,8 @@ public:
         BOSS_BULLET_2_ID = 'h',
         BOSS_BULLET_3_ID = 'i',
         HEALINGPORTION_ID = 'j',
+        POWERUP_ITEM_ID = 'k',
+        PLAYER_BULLET2_ID = 'l',
     };
 private:
     DATA Map;

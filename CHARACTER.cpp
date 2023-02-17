@@ -37,7 +37,8 @@ void CHARACTER::draw()
 {
 	float px = Chara.wx - game()->map()->wx();
 	float py = Chara.wy - game()->map()->wy();
-	//‰æ‘œ•\Ž¦‚Í‚Ü‚¾
+	imageColor(Chara.color);
+	image(Chara.img, px, py, Chara.angle, Chara.scale);
 }
 
 void CHARACTER::damage()

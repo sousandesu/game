@@ -6,8 +6,10 @@ class TITLE :
 {
 public:
     struct DATA {
-        VECTOR2 backPos;
-        float printSize;
+        float backpx;
+        float backpy;
+        int backImg = 0;
+        COLOR backColor;
     };
 private:
     DATA Title;
