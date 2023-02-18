@@ -6,6 +6,7 @@ class POWERUP_ITEM :
 public:
     POWERUP_ITEM(class GAME* game) :CHARACTER(game) {}
     void create();
+    void update();
     void damage();
 };
 

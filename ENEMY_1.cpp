@@ -205,7 +205,7 @@ void ENEMY_1::draw()
 void ENEMY_1::appearPortion()
 {
 	int num = random() % 100;
-	if (num >= 0) {
+	if (num >= 80) {
 		game()->characterManager()->healingportion()->appear(Chara.wx, Chara.wy, Chara.vx, Chara.vy);
 	}
 }

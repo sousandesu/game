@@ -9,6 +9,11 @@ void HEALINGPORTION::create()
 	Chara = game()->container()->data().healingPortionChara;
 }
 
+void HEALINGPORTION::update()
+{
+
+}
+
 void HEALINGPORTION::damage()
 {
 	if (Chara.hp > 0) {

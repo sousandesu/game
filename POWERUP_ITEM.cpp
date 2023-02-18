@@ -9,6 +9,11 @@ void POWERUP_ITEM::create()
 	Chara = game()->container()->data().powerupItemChara;
 }
 
+void POWERUP_ITEM::update()
+{
+
+}
+
 
 
 void POWERUP_ITEM::damage()

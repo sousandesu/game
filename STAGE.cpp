@@ -47,7 +47,7 @@ void STAGE::nextScene()
 	if (isTrigger(KEY_SPACE)) {
 		game()->changeScene(GAME::GAME_CLEAR_ID);
 	}
-	else if (isTrigger(KEY_Z)) {
+	else if (game()->characterManager()->player()->died()) {
 		game()->changeScene(GAME::GAME_OVER_ID);
 	}
 }

@@ -36,7 +36,7 @@ void CONTAINER::setData()
 	Data.player.bulletOffsetX = 128.0f;//仮
 	Data.player.bulletOffsetY = 128.0f;//仮
 	Data.player.chargeShotTime = 0;
-	Data.player.chargeShotInterval = 90.0f;
+	Data.player.chargeShotInterval = 75.0f;
 	Data.player.invincibleTime = 0;
 	Data.player.invincibleInterval = 60.0f;
 	Data.player.bulletCharaId = MAP::PLAYER_BULLET_ID;
@@ -45,7 +45,7 @@ void CONTAINER::setData()
 	Data.playerBulletChara.charaId = MAP::PLAYER_BULLET_ID;
 	Data.playerBulletChara.groupId = 2;//味方バレットグループは2
 	Data.playerBulletChara.hp = 1;
-	Data.playerBulletChara.speed = 7.7f * 60;//仮
+	Data.playerBulletChara.speed = 10.7f * 60;//仮
 	Data.playerBulletChara.offsetLeft = 0.0f;//仮
 	Data.playerBulletChara.offsetTop = 0.0f;//仮
 	Data.playerBulletChara.offsetRight = 64.0f;//仮
@@ -54,8 +54,8 @@ void CONTAINER::setData()
 
 	Data.playerBullet2Chara.charaId = MAP::PLAYER_BULLET2_ID;
 	Data.playerBullet2Chara.groupId = 2;//味方バレットグループは2
-	Data.playerBullet2Chara.hp = 4;
-	Data.playerBullet2Chara.speed = 11.7f * 60;//仮
+	Data.playerBullet2Chara.hp = 6;
+	Data.playerBullet2Chara.speed = 12.7f * 60;//仮
 	Data.playerBullet2Chara.offsetLeft = 0.0f;//仮
 	Data.playerBullet2Chara.offsetTop = 0.0f;//仮
 	Data.playerBullet2Chara.offsetRight = 64.0f;//仮
@@ -63,7 +63,7 @@ void CONTAINER::setData()
 
 	Data.enemy_1Chara.charaId = MAP::ENEMY_1_ID;
 	Data.enemy_1Chara.groupId = 1;//敵グループは1
-	Data.enemy_1Chara.hp = 4;
+	Data.enemy_1Chara.hp = 6;
 	Data.enemy_1Chara.speed = 3.0f * 60;
 	Data.enemy_1Chara.offsetLeft = 4.0f;//仮
 	Data.enemy_1Chara.offsetRight = 124.0f;//仮
@@ -74,12 +74,12 @@ void CONTAINER::setData()
 	Data.enemy_1.leftAnimId = 1;
 	Data.enemy_1.upAnimId = 2;
 	Data.enemy_1.downAnimId = 3;
-	Data.enemy_1.dashspeed = 4.0f * 60;
+	Data.enemy_1.dashspeed = 6.0f * 60;
 	Data.enemy_1.sensingOffset = 15.0f;
 
 	Data.enemy_2Chara.charaId = MAP::ENEMY_2_ID;
 	Data.enemy_2Chara.groupId = 1;//敵グループは1
-	Data.enemy_2Chara.hp = 4;
+	Data.enemy_2Chara.hp = 6;
 	Data.enemy_2Chara.speed = 3.0f * 60;
 	Data.enemy_2Chara.offsetLeft = 4.0f;//仮
 	Data.enemy_2Chara.offsetRight = 124.0f;//仮
@@ -101,14 +101,14 @@ void CONTAINER::setData()
 	Data.enemy_2BulletChara.charaId = MAP::ENEMY_2_BULLET_ID;
 	Data.enemy_2BulletChara.groupId = 3;//敵バレットグループは3
 	Data.enemy_2BulletChara.hp = 1;
-	Data.enemy_2BulletChara.speed = 6.7f * 60;//仮
+	Data.enemy_2BulletChara.speed = 5.7f * 60;//仮
 	Data.enemy_2BulletChara.offsetLeft = 0.0f;//仮
 	Data.enemy_2BulletChara.offsetTop = 0.0f;//仮
-	Data.enemy_2BulletChara.offsetRight = 64.0f;//仮
-	Data.enemy_2BulletChara.offsetBottom = 64.0f;//仮
+	Data.enemy_2BulletChara.offsetRight = 54.0f;//仮
+	Data.enemy_2BulletChara.offsetBottom = 54.0f;//仮
 
 	Data.bossChara.charaId = MAP::BOSS_ID;
-	Data.bossChara.hp = 10;
+	Data.bossChara.hp = 90;
 	Data.bossChara.groupId = 1;//敵グループは1
 	Data.bossChara.speed = 3.4f * 60;
 	Data.bossChara.offsetLeft = 0.0f;//仮
@@ -135,6 +135,8 @@ void CONTAINER::setData()
 	Data.boss.numNextLaunchBullet1 = 4;
 	Data.boss.numNextLaunchBullet2 = 10;
 	Data.boss.numNextLaunchBullet3 = 9;
+	Data.boss.nextLaunchPatternWaitingTime = 0.0f;
+	Data.boss.nextLaunchPatternWaitingInterval = 40.0f;
 	Data.boss.bullet1CharaId = MAP::BOSS_BULLET_1_ID;
 	Data.boss.bullet2CharaId = MAP::BOSS_BULLET_2_ID;
 	Data.boss.bullet3CharaId = MAP::BOSS_BULLET_3_ID;
@@ -192,8 +194,8 @@ void CONTAINER::setData()
 	Data.charaMng.numPlayers = 1;
 	Data.charaMng.numPlayerBullets = 3;
 	Data.charaMng.numPlayerBullets2 = 2;
-	Data.charaMng.numEnemies_1 = 3;
-	Data.charaMng.numEnemies_2 = 5;
+	Data.charaMng.numEnemies_1 = 13;
+	Data.charaMng.numEnemies_2 = 12;
 	Data.charaMng.numEnemies_2Bullets = 20;
 	Data.charaMng.numBosses = 1;
 	Data.charaMng.numBossesBullets_1 = 8;
@@ -204,7 +206,7 @@ void CONTAINER::setData()
 
 	Data.hitpoint.px = 0;
 	Data.hitpoint.py = 0;
-	Data.hitpoint.offSetPx = 64;
+	Data.hitpoint.offSetPx = 128;
 	Data.hitpoint.numHitPointContainer = 3;
 
 }

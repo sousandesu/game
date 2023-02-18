@@ -53,11 +53,12 @@ void MAP::init() {
         WARNING(1, "最後の行を改行していない", "");
     }
     Map.dispCols = (int)width / Map.chipSize + 1;//表示すべき列数
+    Map.dispRows = (int)height / Map.chipSize +2;//表示すべき行数
     //多分dispRows必要
 
     Map.worldWidth = (float)Map.chipSize * (Map.cols - 2);//ワールドの横幅
     Map.endWorldX = Map.worldWidth - width;//表示できる最後の座標
-    Map.worldHeight = (float)Map.chipSize * (Map.rows);//ワールドの縦幅
+    Map.worldHeight = (float)Map.chipSize * (Map.rows - 1);//ワールドの縦幅
     Map.endWorldY = Map.worldHeight - height;//表示できる最後の座標
     Map.wx = 0.0f;//現在表示しているワールド座標
     Map.wy = 0.0f;//現在表示しているワールド座標
@@ -138,9 +139,13 @@ void MAP::draw()
     backmapdraw();
     int startCol = (int)Map.wx / Map.chipSize;//表示開始列
     int endCol = startCol + Map.dispCols;//表示終了列
+
+    int startRow = (int)Map.wy / Map.chipSize;
+    int endRow = startRow + Map.dispRows;
+
     for (int c = startCol; c < endCol; c++) {
         float wx = (float)Map.chipSize * c;
-        for (int r = 0; r < Map.rows; r++) {
+        for (int r = startRow; r < endRow; r++) {
             float wy = (float)Map.chipSize * r;
             char charaId = Map.data[r * Map.cols + c];
             if (charaId >= '0' && charaId <= '9') {
@@ -159,8 +164,6 @@ void MAP::draw()
             }
         }
     }
-    print(Map.wx);
-    print(Map.wy);
 }
 
 void MAP::backmapdraw() {

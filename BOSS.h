@@ -34,6 +34,8 @@ public:
         float dontLaunchInterval = 0;
         int nextLaunchPattern = 0;
         int numLaunchBullet = 0;
+        float nextLaunchPatternWaitingTime = 0;
+        float nextLaunchPatternWaitingInterval = 0;
         int numNextLaunchBullet1 = 0;
         int numNextLaunchBullet2 = 0;
         int numNextLaunchBullet3 = 0;

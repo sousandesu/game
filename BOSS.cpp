@@ -91,13 +91,28 @@ void BOSS::Launch()
 {
 	switch (Boss.nextLaunchPattern) {
 	case 0:
-		LaunchPattern1();
+		if (Boss.nextLaunchPatternWaitingTime > Boss.nextLaunchPatternWaitingInterval*delta) {
+			LaunchPattern2();
+		}
+		else {
+			Boss.nextLaunchPatternWaitingTime += delta;
+		}
 		break;
 	case 1:
-		LaunchPattern2();
+		if (Boss.nextLaunchPatternWaitingTime > Boss.nextLaunchPatternWaitingInterval * delta) {
+			LaunchPattern1();
+		}
+		else {
+			Boss.nextLaunchPatternWaitingTime += delta;
+		}
 		break;
 	case 2:
-		LaunchPattern3();
+		if (Boss.nextLaunchPatternWaitingTime > Boss.nextLaunchPatternWaitingInterval * delta) {
+			LaunchPattern3();
+		}
+		else {
+			Boss.nextLaunchPatternWaitingTime += delta;
+		}
 		break;
 	}
 }
@@ -123,6 +138,7 @@ void BOSS::LaunchPattern1()
 				Boss.launchFlag = false;
 				if (Boss.numLaunchBullet >= Boss.numNextLaunchBullet1) {
 					Boss.numLaunchBullet = 0;
+					Boss.nextLaunchPatternWaitingTime = 0;
 					Boss.nextLaunchPattern++;
 				}
 				if (Boss.nextLaunchPattern >= 3) Boss.nextLaunchPattern = 0;
@@ -170,6 +186,7 @@ void BOSS::LaunchPattern2()
 				Boss.launchFlag = false;
 				if (Boss.numLaunchBullet >= Boss.numNextLaunchBullet2) {
 					Boss.numLaunchBullet = 0;
+					Boss.nextLaunchPatternWaitingTime = 0;
 					Boss.nextLaunchPattern++;
 				}
 				if (Boss.nextLaunchPattern >= 3) Boss.nextLaunchPattern = 0;
@@ -203,6 +220,7 @@ void BOSS::LaunchPattern3()
 				Boss.launchFlag = false;
 				if (Boss.numLaunchBullet >= Boss.numNextLaunchBullet3) {
 					Boss.numLaunchBullet = 0;
+					Boss.nextLaunchPatternWaitingTime = 0;
 					Boss.nextLaunchPattern++;
 				}
 				if (Boss.nextLaunchPattern >= 3) Boss.nextLaunchPattern = 0;

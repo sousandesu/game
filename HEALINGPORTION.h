@@ -6,6 +6,7 @@ class HEALINGPORTION :
 public:
     HEALINGPORTION(class GAME* game) :CHARACTER(game) {}
     void create();
+    void update();
     void damage();
 };
 
