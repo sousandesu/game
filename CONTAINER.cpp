@@ -32,7 +32,7 @@ void CONTAINER::setData()
 	Data.playerChara.charaId = MAP::PLAYER_ID;
 	Data.playerChara.hp = 6;
 	Data.playerChara.groupId = 0;//味方グループは0
-	Data.playerChara.speed = 6.7f * 60;
+	Data.playerChara.speed = 7.2f * 60;
 	Data.playerChara.offsetLeft = 4.0f;//仮
 	Data.playerChara.offsetTop = 4.0f;//仮
 	Data.playerChara.offsetRight = 124.0f;//仮
@@ -139,8 +139,8 @@ void CONTAINER::setData()
 	Data.boss.bulletToCenterPlayerOffsetX = 64.0f;
 	Data.boss.bulletToCenterPlayerOffsetY = 64.0f;
 	Data.boss.bulletCenterOffsetX = 32.0f;
-	Data.boss.bulletCenterOffsetY = 32.0f;
-	Data.boss.threeWayangle = 0.610865;
+	Data.boss.bulletCenterOffsetY = 162.0f;
+	Data.boss.threeWayangle = 0.558505f;
 	Data.boss.waitingTime = 0;
 	Data.boss.waitingInterval1 = 60.0f;
 	Data.boss.waitingInterval2 = 45.0f;
@@ -159,7 +159,7 @@ void CONTAINER::setData()
 	Data.bossBullet_1Chara.charaId = MAP::BOSS_BULLET_1_ID;
 	Data.bossBullet_1Chara.groupId = 3;//敵バレットグループは3
 	Data.bossBullet_1Chara.hp = 1;
-	Data.bossBullet_1Chara.speed = 6.7f * 60;//仮
+	Data.bossBullet_1Chara.speed = 7.0f * 60;//仮
 	Data.bossBullet_1Chara.offsetLeft = 0.0f;//仮
 	Data.bossBullet_1Chara.offsetTop = 0.0f;//仮
 	Data.bossBullet_1Chara.offsetRight = 384.0f;//仮
