@@ -260,8 +260,8 @@ void BOSS::draw()
 {
 	Boss.px = Chara.wx - game()->map()->wx();
 	Boss.py = Chara.wy - game()->map()->wy();
-	fill(0, 0, 255);
-	rect(Boss.px, Boss.py, 384, 384);
+	imageColor(Chara.color);
+	image(Chara.img, Boss.px, Boss.py);
 }
 
 void BOSS::damage()

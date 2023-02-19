@@ -12,6 +12,7 @@ void PLAYER::create()
 void PLAYER::init()
 {
     Chara.hp = 0;
+    Player.invincibleTime = 0;
     Player.powerupFlag = false;
 }
 
@@ -26,11 +27,12 @@ void PLAYER::appear(float wx, float wy, float vx, float vy)
 
 void PLAYER::update() 
 {
-    Launch();
+    restoreState();
     Move();
+    Launch();
+    judgeInvincibleTime();
     //CollisionWithMap(); moveÇ≈ÉRÉäÉWÉáÉìÇµÇƒÇÈ
     CheckState();
-    judgeInvincibleTime();
 }
 
 void PLAYER::Launch()
@@ -40,12 +42,15 @@ void PLAYER::Launch()
         oneShot();
     }
     if (isPress(KEY_G) && Player.powerupFlag) {
+        State = STATE::CHARGE;
         Player.chargeShotTime -= delta;
     }
     if (!isPress(KEY_G) && Player.powerupFlag && Player.chargeShotTime < (-Player.chargeShotInterval) * delta) {
+        State = STATE::STRUGGLING;
         chargeShot();
     }
     if (!isPress(KEY_G) && Player.powerupFlag) {
+        State = STATE::STRUGGLING;
         Player.chargeShotTime = 0;
     }
 
@@ -222,8 +227,47 @@ void PLAYER::draw()
 {
     Player.px = Chara.wx - game()->map()->wx();
     Player.py = Chara.wy - game()->map()->wy();
-    //fill(255, 0, 0);
-    rect(Player.px, Player.py,128,128);
+    if (State == STATE::INVINCIBLE) {
+        static int i = 0;
+        i++;
+        if (i / 3 % 2 == 0) {
+            imageColor(Player.invincibleColor);
+        }
+        else {
+            imageColor(Chara.color);
+        }
+        if (i == 6) {
+            i = 0;
+        }
+    }
+    else if (State == STATE::CHARGE) {
+        static int i = 0;
+        i++;
+        if (i / 3 % 2 == 0) {
+            imageColor(Player.chargeColor);
+        }
+        else {
+            imageColor(Chara.color);
+        }
+        if (i == 6) {
+            i = 0;
+        }
+    }
+    else if (State == STATE::STRUGGLING) {
+        imageColor(Chara.color);
+    }
+    if (Chara.animId == Player.rightAnimId) {
+        image(Player.rightImg, Player.px, Player.py);
+    }
+    else if (Chara.animId == Player.leftAnimId) {
+        image(Player.leftImg, Player.px, Player.py);
+    }
+    else if (Chara.animId == Player.upAnimId) {
+        image(Player.upImg, Player.px, Player.py);
+    }
+    else if (Chara.animId == Player.downAnimId) {
+        image(Player.downImg, Player.px, Player.py);
+    }
 }
 
 void PLAYER::damage()
@@ -240,12 +284,14 @@ void PLAYER::damage()
 void PLAYER::judgeInvincibleTime()
 {
     if (Player.invincibleTime > 0) {
+        State = STATE::INVINCIBLE;
         Player.invincibleTime -= delta;
-        fill(0, 255, 0);//ñ≥ìGéûä‘Ç™ÇÌÇ©ÇÈÇÊÇ§Ç…âºÇ…êFÇïœÇ¶ÇƒÇÈ
     }
-    else {
-        fill(255, 0, 0);
-    }
+}
+
+void PLAYER::restoreState()
+{
+    State = STATE::STRUGGLING;
 }
 
 bool PLAYER::died()

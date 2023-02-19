@@ -179,6 +179,7 @@ void MAP::backmapdraw() {
                 float px = wx - Map.wx;
                 float py = wy - Map.wy;
                 if (charaId == '1') {
+                    imageColor(Map.color);
                     image(Map.backImg, px, py);
                 }
             }

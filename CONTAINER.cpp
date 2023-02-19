@@ -12,6 +12,14 @@ void CONTAINER::setData()
 	Data.title.backpy = 0;
 	Data.title.backColor = COLOR(255, 255, 255, 255);
 
+	Data.game_over.backpx = 0;
+	Data.game_over.backpy = 0;
+	Data.game_over.backColor = COLOR(255, 255, 255, 255);
+
+	Data.game_clear.backpx = 0;
+	Data.game_clear.backpy = 0;
+	Data.game_clear.backColor = COLOR(255, 255, 255, 255);
+
 	Data.map.fileName = "assets\\map1.txt";
 	Data.map.chipSize = 128;
 	Data.map.centerX = width / 2 - Data.map.chipSize / 2;
@@ -19,6 +27,7 @@ void CONTAINER::setData()
 	Data.map.backFileName = "assets\\mapback1.txt";
 	Data.map.backwidth = 9600;
 	Data.map.backheight = 4320;
+	Data.map.color = COLOR(255, 255, 255, 255);
 
 	Data.playerChara.charaId = MAP::PLAYER_ID;
 	Data.playerChara.hp = 6;
@@ -28,6 +37,7 @@ void CONTAINER::setData()
 	Data.playerChara.offsetTop = 4.0f;//âº
 	Data.playerChara.offsetRight = 124.0f;//âº
 	Data.playerChara.offsetBottom = 124.0f;//âº
+	Data.playerChara.color = COLOR(255, 255, 255, 255);
 	Data.player.rightAnimId = 0;
 	Data.player.leftAnimId = 1;
 	Data.player.upAnimId = 2;
@@ -39,6 +49,8 @@ void CONTAINER::setData()
 	Data.player.chargeShotInterval = 75.0f;
 	Data.player.invincibleTime = 0;
 	Data.player.invincibleInterval = 60.0f;
+	Data.player.invincibleColor = COLOR(255, 255, 255, 148);
+	Data.player.chargeColor = COLOR(255, 255, 0, 255);
 	Data.player.bulletCharaId = MAP::PLAYER_BULLET_ID;
 	Data.player.bullet2CharaId = MAP::PLAYER_BULLET2_ID;
 
@@ -60,6 +72,8 @@ void CONTAINER::setData()
 	Data.playerBullet2Chara.offsetTop = 0.0f;//âº
 	Data.playerBullet2Chara.offsetRight = 64.0f;//âº
 	Data.playerBullet2Chara.offsetBottom = 64.0f;//âº
+	Data.playerBullet2Chara.color = COLOR(255, 255, 255, 255);
+
 
 	Data.enemy_1Chara.charaId = MAP::ENEMY_1_ID;
 	Data.enemy_1Chara.groupId = 1;//ìGÉOÉãÅ[ÉvÇÕ1
@@ -115,6 +129,7 @@ void CONTAINER::setData()
 	Data.bossChara.offsetTop = 0.0f;//âº
 	Data.bossChara.offsetRight = 384.0f;//âº
 	Data.bossChara.offsetBottom = 384.0f;//âº
+	Data.bossChara.color = COLOR(255, 255, 255, 255);
 	Data.boss.bullet1OffsetX = 0.0f;
 	Data.boss.bullet1OffsetY = 374.0f;
 	Data.boss.bullet2OffsetX = 192.0f;
@@ -216,13 +231,27 @@ void CONTAINER::LoadGraphics()
 
 	Data.title.backImg = loadImage("assets\\title.png");
 
+	Data.game_over.backImg = loadImage("assets\\game_orver.png");
+
+	Data.game_clear.backImg = loadImage("assets\\game_clear.png");
+
 	Data.map.backImg = loadImage("assets\\zentaimap.png");
 	Data.map.treeImg = loadImage("assets\\tree.png");
+
+	Data.player.rightImg = loadImage("assets\\player_right.png");
+	Data.player.leftImg = loadImage("assets\\player_left.png");
+	Data.player.upImg = loadImage("assets\\player_back.png");
+	Data.player.downImg = loadImage("assets\\player_front.png");
 
 	Data.playerBullet.rightImg = loadImage("assets\\player_magic_right.png");
 	Data.playerBullet.leftImg = loadImage("assets\\player_magic_left.png");
 	Data.playerBullet.upImg = loadImage("assets\\player_magic_up.png");
 	Data.playerBullet.downImg = loadImage("assets\\player_magic_down.png");
+
+	Data.playerBullet2.rightImg = loadImage("assets\\player_magic_power up_right.png");
+	Data.playerBullet2.leftImg = loadImage("assets\\player_magic_power up_left.png");
+	Data.playerBullet2.upImg = loadImage("assets\\player_magic_power up_up.png");
+	Data.playerBullet2.downImg = loadImage("assets\\player_magic_power up_down.png");
 
 	Data.enemy_1.rightImg = loadImage("assets\\konbo_right.png");
 	Data.enemy_1.leftImg = loadImage("assets\\konbo_left.png");
@@ -238,6 +267,8 @@ void CONTAINER::LoadGraphics()
 	Data.enemy_2Bullet.leftImg = loadImage("assets\\ya_left.png");
 	Data.enemy_2Bullet.upImg = loadImage("assets\\ya_up.png");
 	Data.enemy_2Bullet.downImg = loadImage("assets\\ya_down.png");
+
+	Data.bossChara.img = loadImage("assets\\boss.png");
 
 	Data.bossBullet_1Chara.img = loadImage("assets\\boss_bullet1.png");
 

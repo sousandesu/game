@@ -39,6 +39,8 @@ void GAME::run()
 
 	Container->load();
 	Scenes[TITLE_ID]->create();
+	Scenes[GAME_OVER_ID]->create();
+	Scenes[GAME_CLEAR_ID]->create();
 	Map->create();
 	CharacterManager->create();
 	HitPoint->create();

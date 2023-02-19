@@ -1,9 +1,12 @@
 #pragma once
 #include"TITLE.h"
+#include"GAME_OVER.h"
+#include"GAME_CLEAR.h"
 #include"STAGE.h"
 #include"MAP.h"
 #include"PLAYER.h"
 #include"PLAYER_BULLET.h"
+#include"PLAYER_BULLET2.h"
 #include"ENEMY_1.h"
 #include"ENEMY_2.h"
 #include"ENEMY_2_BULLET.h"
@@ -16,12 +19,15 @@ class CONTAINER
 	struct DATA {
 		TITLE::DATA title;
 		STAGE::DATA stage;
+		GAME_OVER::DATA game_over;
+		GAME_CLEAR::DATA game_clear;
 		MAP::DATA map;
 		CHARACTER::DATA playerChara;
 		PLAYER::DATA player;
 		CHARACTER::DATA playerBulletChara;
 		PLAYER_BULLET::DATA playerBullet;
 		CHARACTER::DATA playerBullet2Chara;
+		PLAYER_BULLET2::DATA playerBullet2;
 		CHARACTER::DATA enemy_1Chara;
 		ENEMY_1::DATA enemy_1;
 		CHARACTER::DATA enemy_2Chara;

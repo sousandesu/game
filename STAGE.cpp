@@ -44,10 +44,11 @@ void STAGE::draw()
 
 void STAGE::nextScene()
 {
-	if (isTrigger(KEY_SPACE)) {
-		game()->changeScene(GAME::GAME_CLEAR_ID);
-	}
-	else if (game()->characterManager()->player()->died()) {
+	//if (isTrigger(KEY_SPACE)) {
+	//	game()->changeScene(GAME::GAME_CLEAR_ID);
+	//}
+	//else 
+	if (game()->characterManager()->player()->died()) {
 		game()->changeScene(GAME::GAME_OVER_ID);
 	}
 }

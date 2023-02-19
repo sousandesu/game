@@ -1,7 +1,7 @@
-#include"libOne.h"
 #include"CONTAINER.h"
 #include"GAME.h"
 #include "TITLE.h"
+
 TITLE::TITLE(GAME* game):
 	SCENE(game)
 {

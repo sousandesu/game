@@ -9,6 +9,15 @@ public:
         int leftAnimId = 1;
         int upAnimId = 2;
         int downAnimId = 3;
+
+        int rightImg = 0;
+        int leftImg = 0;
+        int upImg = 0;
+        int downImg = 0;
+
+        COLOR invincibleColor;
+        COLOR chargeColor;
+
         int Maxhp = 0;
         float curWx = 0;
         float curWy = 0;
@@ -26,7 +35,7 @@ public:
     };
 private:
     DATA Player;
-    enum class STATE { STRUGGLING, DIED, SURVIVED };
+    enum class STATE { STRUGGLING, INVINCIBLE, CHARGE, DIED, SURVIVED };
     STATE State = STATE::STRUGGLING;
 public:
     PLAYER(class GAME* game) :CHARACTER(game) {}
@@ -53,6 +62,7 @@ public:
     void draw();
     void damage();
     void judgeInvincibleTime();
+    void restoreState();
     bool died();
     bool survived();
     float overCenterVx();

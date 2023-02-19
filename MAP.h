@@ -1,5 +1,6 @@
 #pragma once
 #include "GAME_OBJECT.h"
+#include"libOne.h"
 class MAP :
     public GAME_OBJECT
 {
@@ -7,6 +8,7 @@ public:
     struct DATA {
         const char* fileName = 0;
         const char* backFileName = 0;
+        COLOR color;
         int backImg = 0;
         int treeImg = 0;
         int chipSize = 0; //正方形マップチップ画像の一辺のドット数
