@@ -15,23 +15,30 @@ public:
         int upImg = 0;
         int downImg = 0;
 
+        COLOR damegeColor;
+
         float curWx = 0;
         float curWy = 0;
         float px = 0;
         float py = 0;
         char bulletCharaId = 0;
+        char healingportionId = 0;
         float differenceX = 0;
         float differenceY = 0;
         float bulletOffsetX = 0;
         float bulletOffsetY = 0;
         float sensingOffset = 0;
         int direction = 0;
+
+        float damegeTime = 0;
+        float damegeInterval = 0;
         float waitingTime = 0;
         float waitingInterval = 0;
         float dontLaunchTime = 0;
         float dontLaunchInterval = 0;
         bool moveFlag = false;
         bool launchFlag = false;
+        bool damegeFlag = false;
     };
 private:
     DATA Enemy_2;

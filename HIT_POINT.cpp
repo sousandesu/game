@@ -24,6 +24,7 @@ void HIT_POINT::init()
 
 void HIT_POINT::draw()
 {
+	imageColor(Hit_point.color);
 	for (int i = 1; i < game()->container()->data().hitpoint.numHitPointContainer + 1; i++) {
 		if (game()->characterManager()->player()->hp() >= i*2 ) {
 			image(Hit_point.fullImg, Hit_point.px + Hit_point.offSetPx * i - Hit_point.offSetPx, Hit_point.py);

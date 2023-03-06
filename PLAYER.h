@@ -72,5 +72,6 @@ public:
     void powerup();
     float px() { return Player.px; }
     float py() { return Player.py; }
+    bool powerupFlag() { return Player.powerupFlag; }
 };
 

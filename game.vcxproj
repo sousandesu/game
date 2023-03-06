@@ -138,6 +138,7 @@
     <ClCompile Include="BOSS_BULLET_1.cpp" />
     <ClCompile Include="BOSS_BULLET_2.cpp" />
     <ClCompile Include="BOSS_BULLET_3.cpp" />
+    <ClCompile Include="BOSS_HP_GAUGE.cpp" />
     <ClCompile Include="CHARACTER.cpp" />
     <ClCompile Include="CHARACTER_MANAGER.cpp" />
     <ClCompile Include="CONTAINER.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="PLAYER.cpp" />
     <ClCompile Include="PLAYER_BULLET.cpp" />
     <ClCompile Include="PLAYER_BULLET2.cpp" />
+    <ClCompile Include="POWERUP_EXPLANATION.cpp" />
     <ClCompile Include="POWERUP_ITEM.cpp" />
     <ClCompile Include="SCENE.cpp" />
     <ClCompile Include="STAGE.cpp" />
@@ -168,6 +170,7 @@
     <ClInclude Include="BOSS_BULLET_1.h" />
     <ClInclude Include="BOSS_BULLET_2.h" />
     <ClInclude Include="BOSS_BULLET_3.h" />
+    <ClInclude Include="BOSS_HP_GAUGE.h" />
     <ClInclude Include="CHARACTER.h" />
     <ClInclude Include="CHARACTER_MANAGER.h" />
     <ClInclude Include="CONTAINER.h" />
@@ -184,6 +187,7 @@
     <ClInclude Include="PLAYER.h" />
     <ClInclude Include="PLAYER_BULLET.h" />
     <ClInclude Include="PLAYER_BULLET2.h" />
+    <ClInclude Include="POWERUP_EXPLANATION.h" />
     <ClInclude Include="POWERUP_ITEM.h" />
     <ClInclude Include="SCENE.h" />
     <ClInclude Include="STAGE.h" />

@@ -6,6 +6,8 @@
 #include"CONTAINER.h"
 #include"MAP.h"
 #include"HIT_POINT.h"
+#include"POWERUP_EXPLANATION.h"
+#include"BOSS_HP_GAUGE.h"
 #include"CHARACTER_MANAGER.h"
 #include "GAME.h"
 GAME::GAME()
@@ -20,11 +22,14 @@ GAME::GAME()
 	Map = new MAP(this);
 	CharacterManager = new CHARACTER_MANAGER(this);
 	HitPoint = new HIT_POINT(this);
-
+	Powerup_Explanation = new POWERUP_EXPLANATION(this);
+	Boss_Hp_Gauge = new BOSS_HP_GAUGE(this);
 }
 
 GAME::~GAME()
 {
+	delete Boss_Hp_Gauge;
+	delete Powerup_Explanation;
 	delete HitPoint;
 	delete CharacterManager;
 	delete Map;
@@ -44,6 +49,8 @@ void GAME::run()
 	Map->create();
 	CharacterManager->create();
 	HitPoint->create();
+	Powerup_Explanation->create();
+	Boss_Hp_Gauge->create();
 
 	CurSceneId = TITLE_ID;
 	Scenes[CurSceneId]->init();

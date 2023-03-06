@@ -8,6 +8,7 @@ public:
         int fullImg = 0;
         int halfImg = 0;
         int emptyImg = 0;
+        COLOR color;
         float px = 0;
         float py = 0;
         float offSetPx = 0;

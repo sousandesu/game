@@ -26,6 +26,7 @@ void ENEMY_1::init()
 	//Enemy_1.differenceY = 0.0f;
 	Enemy_1.dashFlag = false;
 	Enemy_1.moveFlag = false;
+	Enemy_1.damegeFlag = false;
 }
 
 void ENEMY_1::appear(float wx, float wy, float vx, float vy)
@@ -37,6 +38,9 @@ void ENEMY_1::appear(float wx, float wy, float vx, float vy)
 	Enemy_1.differenceX = wx;
 	Enemy_1.differenceY = wy;
 	Chara.animId = Enemy_1.leftAnimId;
+	Enemy_1.dashFlag = false;
+	Enemy_1.moveFlag = false;
+	Enemy_1.damegeFlag = false;
 }
 
 void ENEMY_1::update()
@@ -49,6 +53,8 @@ void ENEMY_1::damage()
 {
 	if (Chara.hp > 0) {
 		Chara.hp--;
+		Enemy_1.damegeFlag = true;
+		Enemy_1.damegeTime = Enemy_1.damegeInterval * delta;
 		if (Chara.hp == 0) {
 			appearPortion();
 		}
@@ -187,7 +193,14 @@ void ENEMY_1::draw()
 {
 	Enemy_1.px = Chara.wx - game()->map()->wx();
 	Enemy_1.py = Chara.wy - game()->map()->wy();
+
 	imageColor(Chara.color);
+	if (Enemy_1.damegeFlag) {
+		imageColor(Enemy_1.damegeColor);
+		Enemy_1.damegeTime -= delta;
+		if (Enemy_1.damegeTime < 0) Enemy_1.damegeFlag = false;
+	}
+
 	if (Chara.animId == Enemy_1.rightAnimId) {
 		image(Enemy_1.rightImg,Enemy_1.px,Enemy_1.py);
 	}
@@ -206,7 +219,7 @@ void ENEMY_1::appearPortion()
 {
 	int num = random() % 100;
 	if (num >= 80) {
-		game()->characterManager()->healingportion()->appear(Chara.wx, Chara.wy, Chara.vx, Chara.vy);
+		game()->characterManager()->appear(Enemy_1.healingportionId, Chara.wx, Chara.wy, Chara.vx, Chara.vy);
 	}
 }
 

@@ -12,10 +12,16 @@ void CONTAINER::setData()
 	Data.title.backpy = 0;
 	Data.title.backColor = COLOR(255, 255, 255, 255);
 
+	Data.game_over.changeBackFlag = false;
+	Data.game_over.changeBackTime = 0;
+	Data.game_over.changeBackInterval = 75.0f;
 	Data.game_over.backpx = 0;
 	Data.game_over.backpy = 0;
 	Data.game_over.backColor = COLOR(255, 255, 255, 255);
 
+	Data.game_clear.changeBackFlag = false;
+	Data.game_clear.changeBackTime = 0;
+	Data.game_clear.changeBackInterval = 75.0f;
 	Data.game_clear.backpx = 0;
 	Data.game_clear.backpy = 0;
 	Data.game_clear.backColor = COLOR(255, 255, 255, 255);
@@ -88,8 +94,12 @@ void CONTAINER::setData()
 	Data.enemy_1.leftAnimId = 1;
 	Data.enemy_1.upAnimId = 2;
 	Data.enemy_1.downAnimId = 3;
+	Data.enemy_1.damegeTime = 0.0f;
+	Data.enemy_1.damegeInterval = 15.0f;
+	Data.enemy_1.damegeColor = COLOR(255, 0, 0, 255);
 	Data.enemy_1.dashspeed = 6.0f * 60;
 	Data.enemy_1.sensingOffset = 15.0f;
+	Data.enemy_1.healingportionId = MAP::HEALINGPORTION_ID;
 
 	Data.enemy_2Chara.charaId = MAP::ENEMY_2_ID;
 	Data.enemy_2Chara.groupId = 1;//敵グループは1
@@ -106,11 +116,15 @@ void CONTAINER::setData()
 	Data.enemy_2.bulletOffsetX = 128.0f;
 	Data.enemy_2.bulletOffsetY = 128.0f;
 	Data.enemy_2.sensingOffset = 15.0f;
-	Data.enemy_2.waitingTime = 0;
+	Data.enemy_2.damegeTime = 0.0f;
+	Data.enemy_2.damegeInterval = 15.0f;
+	Data.enemy_2.waitingTime = 0.0f;
 	Data.enemy_2.waitingInterval= 40.0f;
-	Data.enemy_2.dontLaunchTime = 0;
+	Data.enemy_2.dontLaunchTime = 0.0f;
 	Data.enemy_2.dontLaunchInterval = 40.0f;
+	Data.enemy_2.damegeColor = COLOR(255, 0, 0, 255);
 	Data.enemy_2.bulletCharaId = MAP::ENEMY_2_BULLET_ID;
+	Data.enemy_1.healingportionId = MAP::HEALINGPORTION_ID;
 
 	Data.enemy_2BulletChara.charaId = MAP::ENEMY_2_BULLET_ID;
 	Data.enemy_2BulletChara.groupId = 3;//敵バレットグループは3
@@ -122,7 +136,7 @@ void CONTAINER::setData()
 	Data.enemy_2BulletChara.offsetBottom = 54.0f;//仮
 
 	Data.bossChara.charaId = MAP::BOSS_ID;
-	Data.bossChara.hp = 90;
+	Data.bossChara.hp = 80;
 	Data.bossChara.groupId = 1;//敵グループは1
 	Data.bossChara.speed = 3.4f * 60;
 	Data.bossChara.offsetLeft = 0.0f;//仮
@@ -216,14 +230,26 @@ void CONTAINER::setData()
 	Data.charaMng.numBossesBullets_1 = 8;
 	Data.charaMng.numBossesBullets_2 = 24;
 	Data.charaMng.numBossesBullets_3 = 16;
-	Data.charaMng.numHealingPortions = 1;
+	Data.charaMng.numHealingPortions = 4;
 	Data.charaMng.numPowerupItems = 1;
 
+	Data.hitpoint.color = COLOR(255, 255, 255, 255);
 	Data.hitpoint.px = 0;
 	Data.hitpoint.py = 0;
-	Data.hitpoint.offSetPx = 128;
+	Data.hitpoint.offSetPx = 128.0f;
 	Data.hitpoint.numHitPointContainer = 3;
 
+	Data.powerup_explanation.color = COLOR(255, 255, 255, 239);
+	Data.powerup_explanation.px = 640.0f;
+	Data.powerup_explanation.py = 128.0f;
+	Data.powerup_explanation.displayTime = 0.0f;
+	Data.powerup_explanation.displayInterval = 180.0f;
+
+	Data.boss_hp_gauge.color = COLOR(255, 255, 255, 255);
+	Data.boss_hp_gauge.maxHp = Data.bossChara.hp;
+	Data.boss_hp_gauge.px = 1664.0f;
+	Data.boss_hp_gauge.py = 0.0f;
+	Data.boss_hp_gauge.bossCharaId = MAP::BOSS_ID;
 }
 
 void CONTAINER::LoadGraphics()
@@ -276,9 +302,23 @@ void CONTAINER::LoadGraphics()
 
 	Data.bossBullet_3Chara.img = loadImage("assets\\boss_bullet2.png");
 
+	Data.boss_hp_gauge.fullImg = loadImage("assets\\hpfull.png");
+	Data.boss_hp_gauge.ninetyImg = loadImage("assets\\hp_09.png");
+	Data.boss_hp_gauge.eightyImg = loadImage("assets\\hp_08.png");
+	Data.boss_hp_gauge.seventyImg = loadImage("assets\\hp_07.png");
+	Data.boss_hp_gauge.sixtyImg = loadImage("assets\\hp_06.png");
+	Data.boss_hp_gauge.fiftyImg = loadImage("assets\\hp_05.png");
+	Data.boss_hp_gauge.fortyImg = loadImage("assets\\hp_04.png");
+	Data.boss_hp_gauge.thirtyImg = loadImage("assets\\hp_03.png");
+	Data.boss_hp_gauge.twentyImg = loadImage("assets\\hp_02.png");
+	Data.boss_hp_gauge.tenImg = loadImage("assets\\hp_01.png");
+	Data.boss_hp_gauge.emptyImg = loadImage("assets\\hp_00.png");
+
 	Data.healingPortionChara.img = loadImage("assets\\portion.png");
 
 	Data.powerupItemChara.img = loadImage("assets\\grimoire.png");
+
+	Data.powerup_explanation.img = loadImage("assets\\explanation.png");
 
 	Data.hitpoint.fullImg = loadImage("assets\\fullheart.png");
 	Data.hitpoint.halfImg = loadImage("assets\\halfheart.png");

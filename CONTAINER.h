@@ -14,6 +14,8 @@
 #include"BOSS_BULLET_3.h"
 #include"CHARACTER_MANAGER.h"
 #include"HIT_POINT.h"
+#include"POWERUP_EXPLANATION.h"
+#include"BOSS_HP_GAUGE.h"
 class CONTAINER
 {
 	struct DATA {
@@ -44,6 +46,8 @@ class CONTAINER
 		CHARACTER::DATA powerupItemChara;
 		CHARACTER_MANAGER::DATA charaMng;
 		HIT_POINT::DATA hitpoint;
+		POWERUP_EXPLANATION::DATA powerup_explanation;
+		BOSS_HP_GAUGE::DATA boss_hp_gauge;
 	};
 	DATA Data;
 public:

@@ -5,6 +5,9 @@ class GAME_OVER :
 {
 public:
     struct DATA {
+        bool changeBackFlag = false;
+        float changeBackTime = 0;
+        float changeBackInterval = 0;
         float backpx;
         float backpy;
         int backImg = 0;
@@ -16,6 +19,7 @@ public:
     GAME_OVER(class GAME* game);
     ~GAME_OVER();
     void create();
+    void init();
     void draw();
     void nextScene();
 };

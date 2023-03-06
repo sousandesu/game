@@ -3,6 +3,7 @@
 #include"CONTAINER.h"
 #include"MAP.h"
 #include"HIT_POINT.h"
+#include"POWERUP_EXPLANATION.h"
 #include"CHARACTER_MANAGER.h"
 #include "STAGE.h"
 STAGE::STAGE(GAME* game) :
@@ -24,6 +25,7 @@ void STAGE::init()
 	game()->map()->init();
 	game()->characterManager()->init();
 	game()->hitPoint()->init();
+	game()->powerup_Explanation()->init();
 }
 
 void STAGE::update()
@@ -38,6 +40,8 @@ void STAGE::draw()
 	game()->map()->draw();
 	game()->characterManager()->draw();
 	game()->hitPoint()->draw();
+	game()->powerup_Explanation()->draw();
+	game()->boss_Hp_Gauge()->draw();
 }
 
 

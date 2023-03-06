@@ -49,11 +49,10 @@ void CHARACTER_MANAGER::create()
     Characters = new CHARACTER * [Total];
 
     Player = new PLAYER(game());
-    Healingportion= new HEALINGPORTION(game());
     int i, j = 0;
     for (i = 0; i < CharaMng.numPlayers; i++)         Characters[j++] = Player;
     for (i = 0; i < CharaMng.numPlayerBullets; i++)   Characters[j++] = new PLAYER_BULLET(game());
-    for (i = 0; i < CharaMng.numPlayerBullets2; i++)   Characters[j++] = new PLAYER_BULLET2(game());
+    for (i = 0; i < CharaMng.numPlayerBullets2; i++)  Characters[j++] = new PLAYER_BULLET2(game());
     for (i = 0; i < CharaMng.numEnemies_1; i++)       Characters[j++] = new ENEMY_1(game());
     for (i = 0; i < CharaMng.numEnemies_2; i++)       Characters[j++] = new ENEMY_2(game());
     for (i = 0; i < CharaMng.numEnemies_2Bullets; i++)Characters[j++] = new ENEMY_2_BULLET(game());
@@ -61,7 +60,7 @@ void CHARACTER_MANAGER::create()
     for (i = 0; i < CharaMng.numBossesBullets_1; i++) Characters[j++] = new BOSS_BULLET_1(game());
     for (i = 0; i < CharaMng.numBossesBullets_2; i++) Characters[j++] = new BOSS_BULLET_2(game());
     for (i = 0; i < CharaMng.numBossesBullets_3; i++) Characters[j++] = new BOSS_BULLET_3(game());
-    for (i = 0; i < CharaMng.numHealingPortions; i++) Characters[j++] = Healingportion;
+    for (i = 0; i < CharaMng.numHealingPortions; i++) Characters[j++] = new HEALINGPORTION(game());
     for (i = 0; i < CharaMng.numPowerupItems; i++)    Characters[j++] = new POWERUP_ITEM(game());
     for (int i = 0; i < Total; i++) {
         Characters[i]->create();
@@ -154,6 +153,16 @@ void CHARACTER_MANAGER::draw()
     for (int i = 0; i < Total; i++) {
         if (Characters[i]->hp() > 0) {
             Characters[i]->draw();
+        }
+    }
+}
+
+//一体しかいないキャラクターにしか使えない
+int CHARACTER_MANAGER::hp(char charaId)
+{
+    for (int i = 0; i < Total; i++) {
+        if (Characters[i]->charaId() == charaId) {
+            return Characters[i]->hp();
         }
     }
 }

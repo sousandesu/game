@@ -154,7 +154,7 @@ void MAP::draw()
                 if (charaId == '1') {
                     image(Map.treeImg, px, py);
                 }
-                else if (charaId == '2'&& Map.wx > 7030 && Map.wy < 560) {
+                else if (charaId == '2' && Map.wx > 7030 && Map.wy < 560) {
                     image(Map.treeImg, px, py);
                 }
             }

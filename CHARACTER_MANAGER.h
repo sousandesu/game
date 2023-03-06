@@ -23,7 +23,6 @@ private:
     DATA CharaMng;
     class CHARACTER** Characters = nullptr;
     class PLAYER* Player = nullptr;
-    class HEALINGPORTION* Healingportion = nullptr;
 public:
     CHARACTER_MANAGER(class GAME* game);
     ~CHARACTER_MANAGER();
@@ -32,7 +31,7 @@ public:
     void appear(char charaId, float wx, float wy, float vx = 0, float vy = 0);
     void update();
     void draw();
+    int hp(char charaId);
     class PLAYER* player() { return Player; }
-    class HEALINGPORTION* healingportion() { return Healingportion; }
 };
 
